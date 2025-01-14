@@ -1,5 +1,5 @@
 {
-  "name": "agricultura-app",
+  "name": "agricultura-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
