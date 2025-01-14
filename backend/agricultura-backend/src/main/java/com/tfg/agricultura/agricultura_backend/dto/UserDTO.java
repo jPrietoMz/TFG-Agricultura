@@ -1,10 +1,19 @@
 package com.tfg.agricultura.agricultura_backend.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
+
+
+
 public class UserDTO {
 
+    @NotBlank(message = "El nombre de usuario no puede estar vacío.")
     private String username;
+    @NotBlank(message = "La contraseña no puede estar vacía.")
+    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres.")
     private String password;
-    private String role;
+//    private String role;
 
     // Constructor vacío
     public UserDTO() {}
@@ -13,7 +22,7 @@ public class UserDTO {
     public UserDTO(String username, String password, String role) {
         this.username = username;
         this.password = password;
-        this.role = role;
+//        this.role = role;
     }
 
     // Getters y setters
@@ -32,12 +41,12 @@ public class UserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+    //DEFINO ROLE POR DEFECTO COMO USER PORQUE LA GENTE QUE SE REGISTRA NO NECESITA TANTOS PEMR
+//    public String getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
 }

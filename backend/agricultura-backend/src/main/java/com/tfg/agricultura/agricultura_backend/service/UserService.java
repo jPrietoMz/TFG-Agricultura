@@ -1,12 +1,8 @@
 package com.tfg.agricultura.agricultura_backend.service;
 
-
 import com.tfg.agricultura.agricultura_backend.dto.UserDTO;
 import com.tfg.agricultura.agricultura_backend.model.User;
 import com.tfg.agricultura.agricultura_backend.repository.UserRepository;
-import com.tfg.agricultura.dto.UserDTO;
-import com.tfg.agricultura.model.User;
-import com.tfg.agricultura.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +21,11 @@ public class UserService {
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setRole(userDTO.getRole());
+        user.setRole("USER");
+        System.out.println("Guardando usuario: " + user);
         userRepository.save(user);
     }
+
+
+    // Otros métodos de servicio...
 }
