@@ -22,6 +22,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/users/register").permitAll() // Permitir acceso público a este endpoint
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // Solo accesible para ADMIN
                         .anyRequest().authenticated() // Requiere autenticación para otros endpoints
                 )
                 .csrf(csrf -> csrf.disable()); // Desactiva CSRF para pruebas (opcional)

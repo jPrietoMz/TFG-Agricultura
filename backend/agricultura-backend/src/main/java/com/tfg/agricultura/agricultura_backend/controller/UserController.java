@@ -1,5 +1,6 @@
 package com.tfg.agricultura.agricultura_backend.controller;
 
+import com.tfg.agricultura.agricultura_backend.dto.LoginRequest;
 import com.tfg.agricultura.agricultura_backend.dto.UserDTO;
 import com.tfg.agricultura.agricultura_backend.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -24,5 +25,20 @@ public class UserController {
     public ResponseEntity<String> registerUser(@Valid @RequestBody UserDTO userDTO) {
         userService.registerUser(userDTO);
         return ResponseEntity.ok("User registered successfully");
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody @Valid LoginRequest loginRequest) {
+        try {
+            boolean isAuthenticated = userService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
+            if (isAuthenticated) {
+                return ResponseEntity.ok("Login successful!");
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            }
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
     }
 }
