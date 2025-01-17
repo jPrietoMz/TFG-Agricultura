@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class UserService {
 
@@ -25,31 +24,28 @@ public class UserService {
     }
 
     public void registerUser(UserDTO userDTO) {
-        // Verificar si el usuario ya existe
         if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
             throw new RuntimeException("El nombre de usuario ya está en uso");
         }
 
-        // Crear y guardar el usuario
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setRole("USER");
-        userRepository.save(user);
 
-        // Asignar cultivos iniciales
+        userRepository.save(user); // Guarda primero al usuario
+
+        // Asigna los cultivos iniciales al usuario
         assignInitialCultivos(user);
     }
 
     private void assignInitialCultivos(User user) {
-        List<Cultivo> cultivosIniciales = List.of(
-                new Cultivo("Higos", "Cultivo de higos", user),
-                new Cultivo("Aceituna Verde", "Cultivo de aceituna verde", user),
-                new Cultivo("Aceituna Negra", "Cultivo de aceituna negra", user),
-                new Cultivo("Uva", "Cultivo de uva", user)
-        );
-        cultivoRepository.saveAll(cultivosIniciales);
+        List<Cultivo> cultivosIniciales = cultivoRepository.findAll(); // Obtiene todos los cultivos existentes
+        user.setCultivos(cultivosIniciales); // Relaciona los cultivos con el usuario
+        userRepository.save(user); // Guarda los cambios
     }
+
+    // Otros métodos...
 
     public boolean authenticateUser(String username, String password) {
         Optional<User> userOptional = userRepository.findByUsername(username);
@@ -65,5 +61,5 @@ public class UserService {
             throw new RuntimeException("Usuario no encontrado");
         }
     }
-    // Otros métodos de servicio...
+
 }

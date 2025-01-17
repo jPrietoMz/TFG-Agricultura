@@ -1,11 +1,8 @@
 package com.tfg.agricultura.agricultura_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import java.util.Optional;
-
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -14,11 +11,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String role;
+
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_cultivo",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "cultivo_id")
+    )
+    private List<Cultivo> cultivos = new ArrayList<>();
 
     // Getters y setters
     public Long getId() {
@@ -51,5 +59,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Cultivo> getCultivos() {
+        return cultivos;
+    }
+
+    public void setCultivos(List<Cultivo> cultivos) {
+        this.cultivos = cultivos;
     }
 }

@@ -8,9 +8,14 @@ import java.util.List;
 
 @Repository
 public interface CultivoRepository extends JpaRepository<Cultivo, Long> {
-    // Método para obtener cultivos por usuario
-    List<Cultivo> findByUsuarioId(Long usuarioId);
+    // Cambiar findByUsuarioId por findByUsuario_Id para acceder a la relación correctamente
+    List<Cultivo> findByUsuario_Id(Long usuarioId);
 
-    // Método para buscar cultivos por nombre
     Cultivo findByNombre(String nombre);
+
+    boolean existsByNombre(String nombre); // Agregar este método
+
+
 }
+
+

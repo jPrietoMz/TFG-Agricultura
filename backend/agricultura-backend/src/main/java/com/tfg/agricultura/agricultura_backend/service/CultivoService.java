@@ -1,8 +1,9 @@
 package com.tfg.agricultura.agricultura_backend.service;
 
 import com.tfg.agricultura.agricultura_backend.model.Cultivo;
-import com.tfg.agricultura.agricultura_backend.model.User; // Asegúrate de importar la clase User
+import com.tfg.agricultura.agricultura_backend.model.User;
 import com.tfg.agricultura.agricultura_backend.repository.CultivoRepository;
+import com.tfg.agricultura.agricultura_backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +13,15 @@ import java.util.Optional;
 public class CultivoService {
 
     private final CultivoRepository cultivoRepository;
+    private final UserRepository userRepository;
 
-    public CultivoService(CultivoRepository cultivoRepository) {
+    public CultivoService(CultivoRepository cultivoRepository, UserRepository userRepository) {
         this.cultivoRepository = cultivoRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Cultivo> getCultivosPorUsuario(Long usuarioId) {
-        return cultivoRepository.findByUsuarioId(usuarioId);
+        return cultivoRepository.findByUsuario_Id(usuarioId);
     }
 
     public Optional<Cultivo> getCultivoPorId(Long id) {
@@ -28,9 +31,18 @@ public class CultivoService {
     public Cultivo asignarCultivoUsuario(Long cultivoId, Long usuarioId) {
         Cultivo cultivo = cultivoRepository.findById(cultivoId)
                 .orElseThrow(() -> new RuntimeException("Cultivo no encontrado."));
-        User usuario = new User(); // Crear un objeto User
-        usuario.setId(usuarioId); // Establecer el ID del usuario
-        cultivo.setUsuario(usuario); // Asignar el usuario al cultivo
-        return cultivoRepository.save(cultivo);
+        User usuario = userRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado."));
+
+        // Agregar el usuario a la lista de usuarios del cultivo
+        cultivo.getUsuarios().add(usuario);
+
+        // Agregar el cultivo a la lista de cultivos del usuario (opcional, si es necesario)
+        usuario.getCultivos().add(cultivo);
+
+        // Guardar el cultivo con la relación actualizada
+        cultivoRepository.save(cultivo);
+
+        return cultivo;
     }
 }

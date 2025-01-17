@@ -3,6 +3,9 @@ package com.tfg.agricultura.agricultura_backend.model;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "cultivos")
 public class Cultivo {
@@ -17,19 +20,25 @@ public class Cultivo {
     @Column(length = 255)
     private String descripcion;
 
+    @ManyToMany(mappedBy = "cultivos")
+    @JsonIgnore
+    private List<User> usuarios = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonIgnore // Para evitar problemas de serialización infinita
+    @JsonIgnore
     private User usuario;
+
+
+
 
     // Constructor vacío
     public Cultivo() {}
 
     // Constructor con parámetros
-    public Cultivo(String nombre, String descripcion, User usuario) {
+    public Cultivo(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.usuario = usuario;
     }
 
     // Getters y setters
@@ -57,11 +66,11 @@ public class Cultivo {
         this.descripcion = descripcion;
     }
 
-    public User getUsuario() {
-        return usuario;
+    public List<User> getUsuarios() {
+        return usuarios;
     }
 
-    public void setUsuario(User usuario) {
-        this.usuario = usuario;
+    public void setUsuarios(List<User> usuarios) {
+        this.usuarios = usuarios;
     }
 }
