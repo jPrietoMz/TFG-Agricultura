@@ -52,14 +52,15 @@ public class UserService {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                return true; // Credenciales válidas
-            } else {
-                throw new RuntimeException("Credenciales inválidas");
-            }
+            System.out.println("Password ingresada: " + password);
+            System.out.println("Hash almacenado: " + user.getPassword());
+            boolean match = passwordEncoder.matches(password, user.getPassword());
+            System.out.println("¿La contraseña coincide?: " + match);
+            return match;
         } else {
             throw new RuntimeException("Usuario no encontrado");
         }
     }
+
 
 }

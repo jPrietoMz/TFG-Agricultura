@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 @Configuration
 @EnableWebSecurity
@@ -21,12 +23,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/register").permitAll() // Permitir acceso público a este endpoint
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // Solo accesible para ADMIN
-                        .anyRequest().authenticated() // Requiere autenticación para otros endpoints
+                        .requestMatchers("/api/auth/login", "/api/users/register").permitAll() // Permitir acceso a login y registro
+                        .anyRequest().authenticated() // Requerir autenticación para todo lo demás
                 )
                 .csrf(csrf -> csrf.disable()); // Desactiva CSRF para pruebas (opcional)
 
         return http.build();
+    }
+
+
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        firewall.setAllowUrlEncodedPercent(true); // Permitir caracteres como %0A en la URL
+        return firewall;
     }
 }
