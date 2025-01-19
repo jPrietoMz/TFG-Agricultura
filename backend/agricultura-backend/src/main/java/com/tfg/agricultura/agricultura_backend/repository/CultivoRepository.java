@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CultivoRepository extends JpaRepository<Cultivo, Long> {
     // Cambiar findByUsuarioId por findByUsuario_Id para acceder a la relación correctamente
-    List<Cultivo> findByUsuario_Id(Long usuarioId);
+    List<Cultivo> findByUsuarios_Id(Long usuarioId);
 
     Cultivo findByNombre(String nombre);
 

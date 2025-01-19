@@ -18,8 +18,9 @@ public class CultivoController {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<Cultivo>> obtenerCultivosPorUsuario(@PathVariable Long usuarioId) {
-        return ResponseEntity.ok(cultivoService.getCultivosPorUsuario(usuarioId));
+    public ResponseEntity<List<Cultivo>> getCultivosByUsuario(@PathVariable Long usuarioId) {
+        List<Cultivo> cultivos = cultivoService.obtenerCultivosPorUsuario(usuarioId);
+        return ResponseEntity.ok(cultivos);
     }
 
     @PostMapping("/{cultivoId}/asignar/{usuarioId}")

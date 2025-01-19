@@ -24,11 +24,6 @@ public class Cultivo {
     @JsonIgnore
     private List<User> usuarios = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonIgnore
-    private User usuario;
-
 
 
 
