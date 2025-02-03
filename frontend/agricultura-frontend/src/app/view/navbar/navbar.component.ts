@@ -1,0 +1,17 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css'],
+  standalone: true,
+})
+export class NavbarComponent {
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token'); // Comprueba si hay un token guardado
+  }
+
+  logout(): void {
+    localStorage.removeItem('token'); // Elimina el token de autenticación
+  }
+}
