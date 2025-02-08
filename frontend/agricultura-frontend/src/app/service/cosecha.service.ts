@@ -23,6 +23,14 @@ export class CosechaService {
   getCosechasByCultivo(cultivoId: number): Observable<Cosecha[]> {
     return this.http.get<Cosecha[]>(`${this.apiUrl}/cultivo/${cultivoId}`, { headers: this.getAuthHeaders() });
   }
+
+  addCosecha(cosecha: Cosecha): Observable<Cosecha> {
+    return this.http.post<Cosecha>(
+      `${this.apiUrl}/cultivo/${cosecha.cultivoId}`, // 🔴 Asegurar que el campo sea `cultivo_id`
+      cosecha,
+      { headers: this.getAuthHeaders() } // 🔴 Añadir headers con el token
+    );
+  }
 }
 
 

@@ -1,0 +1,29 @@
+<div class="cosecha-form-container">
+    <h2>Añadir Cosecha</h2>
+    <app-back-button></app-back-button> <!-- 🔙 Botón para volver -->
+  
+    <form (ngSubmit)="guardarCosecha()">
+      <div class="form-group">
+        <label>Fecha Inicio:</label>
+        <input type="date" [(ngModel)]="nuevaCosecha.fechaInicio" name="fechaInicio" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Fecha Fin:</label>
+        <input type="date" [(ngModel)]="nuevaCosecha.fechaFin" name="fechaFin" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Kilos Obtenidos:</label>
+        <input type="number" [(ngModel)]="nuevaCosecha.kilosObtenidos" name="kilosObtenidos" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Precio Obtenido:</label>
+        <input type="number" [(ngModel)]="nuevaCosecha.precioObtenido" name="precioObtenido" required />
+      </div>
+  
+      <button type="submit" class="btn-guardar">Guardar</button>
+    </form>
+  </div>
+  

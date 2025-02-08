@@ -16,4 +16,62 @@
     padding: 10px;
     border-radius: 5px;
   }
-  
+  .cosecha-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  app-back-button {
+    margin-left: auto;
+  }
+
+  /* 🟢 Estilo general de la tabla */
+table {
+  width: 100%; /* ✅ Se adapta al ancho de la página */
+  border-collapse: collapse; /* ✅ Une los bordes de las celdas */
+  border: 2px solid black; /* ✅ Bordes negros */
+  background-color: white; /* ✅ Fondo blanco */
+}
+
+/* 🟢 Bordes de las celdas */
+th, td {
+  border: 1px solid black; /* ✅ Bordes negros para cada celda */
+  padding: 10px; /* ✅ Espaciado interno */
+  text-align: left; /* ✅ Alinear texto a la izquierda */
+}
+
+/* 🟢 Estilos para el encabezado */
+th {
+  background-color: #f2f2f2; /* ✅ Fondo gris para encabezados */
+  color: black;
+}
+
+/* 🔄 Hacer la tabla responsive en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  table {
+      width: 100%;
+      display: block;
+      overflow-x: auto; /* ✅ Permitir desplazamiento horizontal */
+      white-space: nowrap; /* ✅ Evitar saltos de línea en celdas */
+  }
+
+  th, td {
+      padding: 8px; /* ✅ Reducir padding en pantallas pequeñas */
+  }
+
+  .header-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .btn-agregar {
+      background-color: blue;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+  }
+}

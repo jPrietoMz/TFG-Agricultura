@@ -12,7 +12,7 @@ import { CultivoListComponent } from './view/cultivo/cultivo-list/cultivo-list.c
 import { CosechaListComponent } from './view/cosecha/cosecha-list/cosecha-list.component'; 
 import { TratamientoListComponent } from './view/tratamiento/tratamiento-list/tratamiento-list.component';
 import { InicioPageComponent } from './view/inicio/inicio-page/inicio-page.component'; 
-
+import { CosechaFormComponent } from './view/cosecha/cosecha-form/cosecha-form.component';
 // Importamos los resolvers
 import { CultivoResolver } from './resolver/cultivo.resolver';
 import { CosechaResolver } from './resolver/cosecha.resolver';
@@ -29,7 +29,8 @@ const routes: Routes = [
   { path: 'cultivos/:cultivoId', component: CultivoDetailComponent },  // <--- Ruta del detalle
   { path: 'cultivos', component: CultivoListComponent, resolve: { cultivos: CultivoResolver } },
   { path: 'cultivos/:cultivoId/cosechas', component: CosechaListComponent, resolve: { cosechas: CosechaResolver } },
-  { path: 'cultivos/:cultivoId/tratamientos', component: TratamientoListComponent, resolve: { tratamientos: TratamientoResolver } }
+  { path: 'cultivos/:cultivoId/tratamientos', component: TratamientoListComponent, resolve: { tratamientos: TratamientoResolver } },
+  { path: 'cultivos/:cultivoId/cosechas/nueva', component: CosechaFormComponent }, // ✅ AÑADIR ESTA RUTA
 ];
 
 // Configuración de la app

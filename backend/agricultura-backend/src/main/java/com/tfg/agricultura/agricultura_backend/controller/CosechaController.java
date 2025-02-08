@@ -44,4 +44,5 @@ public class CosechaController {
         Cosecha cosecha = cosechaService.obtenerCosecha(cosechaId);
         return ResponseEntity.ok(cosecha);
     }
+
 }

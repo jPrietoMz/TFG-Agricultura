@@ -3,13 +3,16 @@ import { ActivatedRoute } from '@angular/router';
 import { CultivoService } from '../../../service/cultivo.service';
 import { Cultivo } from '../../../model/cultivo.model';
 import { RouterModule } from '@angular/router'; // 📌 Importar RouterModule
+import { BackButtonComponent } from '../../../shared/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-cultivo-detail',
   templateUrl: './cultivo-detail.component.html',
   styleUrls: ['./cultivo-detail.component.css'],
   standalone: true,
-  imports: [RouterModule] // 📌 Asegurar que RouterModule esté disponible
+  imports: [RouterModule,
+            BackButtonComponent,
+  ] // 📌 Asegurar que RouterModule esté disponible
 })
 export class CultivoDetailComponent implements OnInit {
   cultivoId!: number;

@@ -8,6 +8,7 @@ import { CosechaListComponent } from './view/cosecha/cosecha-list/cosecha-list.c
 import { TratamientoListComponent } from './view/tratamiento/tratamiento-list/tratamiento-list.component';
 import { InicioPageComponent } from './view/inicio/inicio-page/inicio-page.component';
 import { CultivoDetailComponent } from './view/cultivo/cultivo-detail/cultivo-detail.component';
+import { CosechaFormComponent } from './view/cosecha/cosecha-form/cosecha-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirigir a Login por defecto
@@ -24,6 +25,10 @@ export const routes: Routes = [
    { path: 'cultivos/:cultivoId', component: CultivoDetailComponent },
    { path: 'cultivos/:cultivoId/cosechas', component: CosechaListComponent },
    { path: 'cultivos/:cultivoId/tratamientos', component: TratamientoListComponent },
+
+   //Listado de cosechas
+   { path: 'cultivos/:cultivoId/cosechas', component: CosechaListComponent },
+   { path: 'cultivos/:cultivoId/cosechas/nueva', component: CosechaFormComponent },
  
    { path: '**', redirectTo: 'login' } 
 ];

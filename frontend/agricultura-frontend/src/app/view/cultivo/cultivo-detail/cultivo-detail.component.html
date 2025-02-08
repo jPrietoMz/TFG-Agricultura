@@ -1,7 +1,7 @@
 <div class="cultivo-detail-container">
   <h2>{{ cultivo.nombre }}</h2>
   <p>{{ cultivo.descripcion }}</p>
-
+  <app-back-button></app-back-button>
   <div class="button-container">
     <button class="btn-cosecha" [routerLink]="['/cultivos', cultivo.id, 'cosechas']">
       Cosechas
