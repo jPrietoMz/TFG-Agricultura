@@ -1,18 +1,36 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../service/auth.service';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';  // ✅ Importa FormsModule correctamente
 
 @Component({
   selector: 'app-login-form',
-  standalone: true,
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css'],
-  imports: [FormsModule],
+  standalone: true,  // ✅ Standalone component
+  imports: [FormsModule]  // ✅ Forma correcta de importar módulos en standalone components
 })
 export class LoginFormComponent {
   loginData = { username: '', password: '' };
 
+  constructor(
+    private authService: AuthService, 
+    private router: Router
+  ) {}
+
   onLogin() {
-    console.log('Login con:', this.loginData);
-    // Aquí iría la conexión con el backend
+    this.authService.login(this.loginData.username, this.loginData.password)
+      .subscribe({
+        next: (response) => {
+          console.log('Login exitoso:', response);
+          this.authService.saveToken(response.token);
+          alert('Inicio de sesión exitoso');
+          this.router.navigate(['/inicio']);
+        },
+        error: (error) => {
+          console.error('Error al iniciar sesión:', error);
+          alert('Error al iniciar sesión: Credenciales incorrectas');
+        }
+      });
   }
 }
