@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-inicio-page',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './inicio-page.component.html',
-  styleUrl: './inicio-page.component.css'
+  styleUrls: ['./inicio-page.component.css'],
 })
-export class InicioPageComponent {
-
-}
+export class InicioPageComponent {}

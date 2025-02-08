@@ -7,14 +7,23 @@ import { CultivoListComponent } from './view/cultivo/cultivo-list/cultivo-list.c
 import { CosechaListComponent } from './view/cosecha/cosecha-list/cosecha-list.component';
 import { TratamientoListComponent } from './view/tratamiento/tratamiento-list/tratamiento-list.component';
 import { InicioPageComponent } from './view/inicio/inicio-page/inicio-page.component';
+import { CultivoDetailComponent } from './view/cultivo/cultivo-detail/cultivo-detail.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirigir a Login por defecto
   { path: 'login', component: LoginFormComponent },
   { path: 'register', component: RegisterFormComponent },
   { path: 'cultivos', component: CultivoListComponent },
+  { path: 'cultivos/:cultivoId', component: CultivoDetailComponent },
   { path: 'inicio', component: InicioPageComponent},
-  { path: 'cosechas', component: CosechaListComponent },
-  { path: 'tratamientos', component: TratamientoListComponent },
-  { path: '**', redirectTo: 'login' } // Redirigir a login si la ruta no existe
+  
+   // Listado de cultivos
+   { path: 'cultivos', component: CultivoListComponent },
+
+   // Detalle de cultivo y sus secciones (Cosechas y Tratamientos)
+   { path: 'cultivos/:cultivoId', component: CultivoDetailComponent },
+   { path: 'cultivos/:cultivoId/cosechas', component: CosechaListComponent },
+   { path: 'cultivos/:cultivoId/tratamientos', component: TratamientoListComponent },
+ 
+   { path: '**', redirectTo: 'login' } 
 ];

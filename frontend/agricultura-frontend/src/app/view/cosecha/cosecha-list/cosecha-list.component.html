@@ -1,9 +1,19 @@
-<div class="cosecha-container">
-    <h2>Mis Cosechas</h2>
-    <ul>
-      <li *ngFor="let cosecha of cosechas">
-        Fecha: {{ cosecha.fecha }} | Kilos: {{ cosecha.kilos_obtenidos }} | Precio: {{ cosecha.precio_obtenido }}
-      </li>
-    </ul>
-  </div>
-  
+<h2>Lista de Cosechas</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Fecha Inicio</th>
+      <th>Fecha Fin</th>
+      <th>Kilos Obtenidos</th>
+      <th>Precio Obtenido</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cosecha of cosechas">
+      <td>{{ cosecha.fecha_inicio }}</td>
+      <td>{{ cosecha.fecha_fin }}</td>
+      <td>{{ cosecha.kilos_obtenidos }}</td>
+      <td>{{ cosecha.precio_obtenido }}</td>
+    </tr>
+  </tbody>
+</table>

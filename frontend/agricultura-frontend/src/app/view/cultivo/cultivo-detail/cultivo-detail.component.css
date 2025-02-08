@@ -1,0 +1,40 @@
+.cultivo-detail-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .btn-cosechas {
+    background-color: rgb(246, 200, 113); /* Amarillo trigo */
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .btn-tratamientos {
+    background-color: blue; /* Azul */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .btn-cosechas:hover {
+    background-color: goldenrod;
+  }
+  
+  .btn-tratamientos:hover {
+    background-color: darkblue;
+  }
+  

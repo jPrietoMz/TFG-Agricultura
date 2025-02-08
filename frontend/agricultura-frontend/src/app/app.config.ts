@@ -3,6 +3,7 @@ import { provideRouter, Routes } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 // Importamos los componentes
 import { LoginFormComponent } from './view/login/login-form/login-form.component';
@@ -17,6 +18,7 @@ import { CultivoResolver } from './resolver/cultivo.resolver';
 import { CosechaResolver } from './resolver/cosecha.resolver';
 import { TratamientoResolver } from './resolver/tratamiento.resolver';
 import { NavbarComponent } from './view/navbar/navbar.component';
+import { CultivoDetailComponent } from './view/cultivo/cultivo-detail/cultivo-detail.component';
 
 // Definimos las rutas
 const routes: Routes = [
@@ -24,6 +26,7 @@ const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
   { path: 'register', component: RegisterFormComponent },
   { path: 'inicio', component: InicioPageComponent},
+  { path: 'cultivos/:cultivoId', component: CultivoDetailComponent },  // <--- Ruta del detalle
   { path: 'cultivos', component: CultivoListComponent, resolve: { cultivos: CultivoResolver } },
   { path: 'cultivos/:cultivoId/cosechas', component: CosechaListComponent, resolve: { cosechas: CosechaResolver } },
   { path: 'cultivos/:cultivoId/tratamientos', component: TratamientoListComponent, resolve: { tratamientos: TratamientoResolver } }
@@ -36,7 +39,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       FormsModule, 
       HttpClient, 
-      HttpClientModule
+      HttpClientModule,
+      RouterModule, 
     ), // Importa HttpClientModule y FormsModule
     provideRouter(
       routes

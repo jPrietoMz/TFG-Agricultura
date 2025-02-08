@@ -27,4 +27,14 @@ public class CultivoController {
     public ResponseEntity<Cultivo> asignarCultivoAUsuario(@PathVariable Long cultivoId, @PathVariable Long usuarioId) {
         return ResponseEntity.ok(cultivoService.asignarCultivoUsuario(cultivoId, usuarioId));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCultivoById(@PathVariable Long id) {
+        try {
+            Cultivo cultivo = cultivoService.obtenerCultivoPorId(id);
+            return ResponseEntity.ok(cultivo);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body("Cultivo no encontrado");
+        }
+    }
 }

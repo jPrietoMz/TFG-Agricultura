@@ -35,8 +35,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // 🔴 Desactivar CSRF (solo en pruebas o APIs públicas)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login", "/api/users/register").permitAll() // 🔴 Permitir login y registro
-                        .requestMatchers("/api/cultivos/**").authenticated() // 🔴 Proteger cultivos
-                        .anyRequest().authenticated() // 🔴 Proteger cualquier otra petición
+                        .requestMatchers("/api/cultivos/**").permitAll()
+                        //.authenticated() // 🔴 Proteger cultivos
+                        .anyRequest().permitAll()
+                        //.authenticated() // 🔴 Proteger cualquier otra petición
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // 🔴 Aplicar filtro JWT antes del UsernamePassword
 

@@ -7,6 +7,7 @@ import com.tfg.agricultura.agricultura_backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -48,5 +49,9 @@ public class CultivoService {
         cultivoRepository.save(cultivo);
 
         return cultivo;
+    }
+
+    public Cultivo obtenerCultivoPorId(Long id) {
+        return cultivoRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Cultivo no encontrado"));
     }
 }
