@@ -1,9 +1,29 @@
-<div class="tratamiento-container">
-    <h2>Mis Tratamientos</h2>
-    <ul>
-      <li *ngFor="let tratamiento of tratamientos">
-        Fecha: {{ tratamiento.fechaAplicacion }} | Producto: {{ tratamiento.producto }} | Dosis: {{ tratamiento.dosis }}
-      </li>
-    </ul>
-  </div>
-  
+<div class="tratamiento-header">
+  <h2>Lista de Tratamientos</h2>
+  <app-back-button></app-back-button>
+</div>
+
+<button (click)="irAFormularioTratamiento()">Añadir Tratamiento</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Producto</th>
+      <th>Dosis</th>
+      <th>Unidad</th>
+      <th>Método</th>
+      <th>Observaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tratamiento of tratamientos">
+      <td>{{ tratamiento.fechaAplicacion }}</td>
+      <td>{{ tratamiento.producto }}</td>
+      <td>{{ tratamiento.dosis }}</td>
+      <td>{{ tratamiento.unidadMedida }}</td>
+      <td>{{ tratamiento.metodoAplicacion }}</td>
+      <td>{{ tratamiento.observaciones }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,20 +1,21 @@
 export class Tratamiento {
-    id: number;
-    nombre: string;
-    descripcion: string;
-    fechaAplicacion: string;
-    cultivoId: number;
-    producto: string;
-    dosis: number;
-  
-    constructor(id: number, nombre: string, descripcion: string, fechaAplicacion: string, cultivoId: number, producto: string, dosis: number) {
-      this.id = id;
-      this.nombre = nombre;
-      this.descripcion = descripcion;
-      this.fechaAplicacion = fechaAplicacion;
-      this.cultivoId = cultivoId;
-      this.producto = producto;
-      this.dosis = dosis;
-    }
+  id: number;
+  cultivoId: number;
+  fechaAplicacion: string;
+  producto: string;
+  dosis: number;
+  unidadMedida: string;
+  metodoAplicacion: string;
+  observaciones: string;
+
+  constructor(id: number, cultivoId: number, fechaAplicacion: string, producto: string, dosis: number, unidadMedida: string, metodoAplicacion: string, observaciones: string) {
+    this.id = id;
+    this.cultivoId = cultivoId;
+    this.fechaAplicacion = fechaAplicacion;
+    this.producto = producto;
+    this.dosis = dosis;
+    this.unidadMedida = unidadMedida;
+    this.metodoAplicacion = metodoAplicacion;
+    this.observaciones = observaciones;
   }
-  
+}

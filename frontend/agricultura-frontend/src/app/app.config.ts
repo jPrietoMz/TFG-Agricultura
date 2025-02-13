@@ -19,6 +19,7 @@ import { CosechaResolver } from './resolver/cosecha.resolver';
 import { TratamientoResolver } from './resolver/tratamiento.resolver';
 import { NavbarComponent } from './view/navbar/navbar.component';
 import { CultivoDetailComponent } from './view/cultivo/cultivo-detail/cultivo-detail.component';
+import { TratamientoFormComponent } from './view/tratamiento/tratamiento-form/tratamiento-form.component';
 
 // Definimos las rutas
 const routes: Routes = [
@@ -31,6 +32,9 @@ const routes: Routes = [
   { path: 'cultivos/:cultivoId/cosechas', component: CosechaListComponent, resolve: { cosechas: CosechaResolver } },
   { path: 'cultivos/:cultivoId/tratamientos', component: TratamientoListComponent, resolve: { tratamientos: TratamientoResolver } },
   { path: 'cultivos/:cultivoId/cosechas/nueva', component: CosechaFormComponent }, // ✅ AÑADIR ESTA RUTA
+  { path: 'cultivos/:cultivoId/tratamientos', component: TratamientoListComponent },
+  { path: 'cultivos/:cultivoId/tratamientos/nuevo', component: TratamientoFormComponent },
+
 ];
 
 // Configuración de la app

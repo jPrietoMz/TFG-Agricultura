@@ -1,0 +1,24 @@
+<h2>Nuevo Tratamiento</h2>
+<app-back-button></app-back-button>
+
+<form (ngSubmit)="guardarTratamiento()">
+  <label>Fecha Aplicación:</label>
+  <input type="date" [(ngModel)]="nuevoTratamiento.fechaAplicacion" name="fecha" required />
+
+  <label>Producto:</label>
+  <input type="text" [(ngModel)]="nuevoTratamiento.producto" name="producto" required />
+
+  <label>Dosis:</label>
+  <input type="number" [(ngModel)]="nuevoTratamiento.dosis" name="dosis" required />
+
+  <label>Unidad:</label>
+  <input type="text" [(ngModel)]="nuevoTratamiento.unidadMedida" name="unidad" required />
+
+  <label>Método:</label>
+  <input type="text" [(ngModel)]="nuevoTratamiento.metodoAplicacion" name="metodo" required />
+
+  <label>Observaciones:</label>
+  <textarea [(ngModel)]="nuevoTratamiento.observaciones" name="observaciones"></textarea>
+
+  <button type="submit">Guardar</button>
+</form>
