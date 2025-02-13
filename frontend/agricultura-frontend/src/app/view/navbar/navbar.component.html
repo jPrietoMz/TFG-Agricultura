@@ -1,11 +1,12 @@
 <nav class="navbar">
-  <div class="navbar-container">
-    <a routerLink="/inicio" class="logo">🌱 AgroApp</a>
-    <ul class="nav-links">
-      <li><a routerLink="/cultivos">Cultivos</a></li>
-      <li><a routerLink="/cosechas">Cosechas</a></li>
-      <li><a routerLink="/tratamientos">Tratamientos</a></li>
-      <li><button class="logout-button" (click)="logout()">Salir</button></li>
-    </ul>
-  </div>
+  <button class="menu-btn" (click)="isSidebarOpen = !isSidebarOpen">☰</button>
+  <div class="app-name">Mi App de Agricultura</div>
+  <img src="assets/logo.png" alt="Logo" class="logo" />
 </nav>
+
+<app-sidebar [isOpen]="isSidebarOpen"></app-sidebar>
+
+<!--
+  <img src="assets/logo.png" alt="Logo" class="logo" />
+
+-->

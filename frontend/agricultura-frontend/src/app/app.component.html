@@ -1,2 +1,4 @@
-<app-navbar></app-navbar> <!-- Barra de navegación -->
-<router-outlet></router-outlet> <!-- Aquí se renderizarán las páginas -->
+<app-navbar *ngIf="isLoggedIn()"></app-navbar>
+<div class="app-content">
+    <router-outlet></router-outlet>
+</div>

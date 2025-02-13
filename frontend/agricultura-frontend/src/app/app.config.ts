@@ -17,7 +17,6 @@ import { CosechaFormComponent } from './view/cosecha/cosecha-form/cosecha-form.c
 import { CultivoResolver } from './resolver/cultivo.resolver';
 import { CosechaResolver } from './resolver/cosecha.resolver';
 import { TratamientoResolver } from './resolver/tratamiento.resolver';
-import { NavbarComponent } from './view/navbar/navbar.component';
 import { CultivoDetailComponent } from './view/cultivo/cultivo-detail/cultivo-detail.component';
 import { TratamientoFormComponent } from './view/tratamiento/tratamiento-form/tratamiento-form.component';
 
@@ -45,7 +44,7 @@ export const appConfig: ApplicationConfig = {
       FormsModule, 
       HttpClient, 
       HttpClientModule,
-      RouterModule, 
+      RouterModule,
     ), // Importa HttpClientModule y FormsModule
     provideRouter(
       routes

@@ -1,19 +1,14 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
+  imports: [CommonModule, SidebarComponent],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
-  imports: [CommonModule, RouterModule]
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor(private router: Router) {}
-
-  logout() {
-    localStorage.removeItem('token'); // Eliminar el token del usuario
-    this.router.navigate(['/login']); // Redirigir a la pantalla de inicio de sesión
-  }
+  isSidebarOpen = false;
 }

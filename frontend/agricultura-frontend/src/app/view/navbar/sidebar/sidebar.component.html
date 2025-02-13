@@ -1,0 +1,11 @@
+<div class="sidebar" [class.open]="isOpen">
+    <button class="close-btn" (click)="isOpen = false">×</button>
+    <ul>
+      <li><a routerLink="/inicio">Inicio</a></li>
+      <li><a routerLink="/cultivos">Cultivos</a></li>
+      <li><a routerLink="/tratamientos">Tratamientos</a></li>
+      <li><a routerLink="/cosechas">Cosechas</a></li>
+      <li><button (click)="logout()">Cerrar sesión</button></li>
+    </ul>
+  </div>
+  
