@@ -24,11 +24,23 @@ public class CosechaService {
         return cosechaRepository.findByCultivoId(cultivoId);
     }
 
-    // Crear una nueva cosecha asociada a un cultivo
+//    // Crear una nueva cosecha asociada a un cultivo
+//    public Cosecha crearCosecha(Long cultivoId, Cosecha cosecha) {
+//        Cultivo cultivo = cultivoRepository.findById(cultivoId)
+//                .orElseThrow(() -> new RuntimeException("Cultivo no encontrado"));
+//        cosecha.setCultivo(cultivo);
+//        return cosechaRepository.save(cosecha);
+//    }
     public Cosecha crearCosecha(Long cultivoId, Cosecha cosecha) {
         Cultivo cultivo = cultivoRepository.findById(cultivoId)
-                .orElseThrow(() -> new RuntimeException("Cultivo no encontrado"));
+                .orElseThrow(() -> new RuntimeException("⚠️ Error: Cultivo no encontrado con ID " + cultivoId));
+
+        // ✅ Asignar el cultivo correctamente a la cosecha antes de guardarla
         cosecha.setCultivo(cultivo);
+
+        // ✅ Mensaje de depuración
+        System.out.println("🌱 Guardando cosecha: " + cosecha.toString());
+
         return cosechaRepository.save(cosecha);
     }
 

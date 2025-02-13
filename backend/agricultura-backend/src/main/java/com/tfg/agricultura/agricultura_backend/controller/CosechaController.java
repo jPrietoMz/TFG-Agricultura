@@ -24,12 +24,26 @@ public class CosechaController {
         return ResponseEntity.ok(cosechas);
     }
 
-    // Crear una cosecha asociada a un cultivo
+//    // Crear una cosecha asociada a un cultivo
+//    @PostMapping("/cultivo/{cultivoId}")
+//    public ResponseEntity<Cosecha> crearCosecha(@PathVariable Long cultivoId, @RequestBody Cosecha cosecha) {
+//        Cosecha nuevaCosecha = cosechaService.crearCosecha(cultivoId, cosecha);
+//        return ResponseEntity.ok(nuevaCosecha);
+//    }
     @PostMapping("/cultivo/{cultivoId}")
     public ResponseEntity<Cosecha> crearCosecha(@PathVariable Long cultivoId, @RequestBody Cosecha cosecha) {
+        System.out.println("📩 Recibiendo solicitud de nueva cosecha: " + cosecha.toString());
+        System.out.println("🌱 Cultivo ID en URL: " + cultivoId);
+
+        // ✅ Verificar si `cultivoId` está llegando correctamente
+        if (cultivoId == null || cultivoId <= 0) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
         Cosecha nuevaCosecha = cosechaService.crearCosecha(cultivoId, cosecha);
         return ResponseEntity.ok(nuevaCosecha);
     }
+
 
     // Eliminar una cosecha
     @DeleteMapping("/{cosechaId}")

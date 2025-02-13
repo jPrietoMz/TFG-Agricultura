@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CosechaService } from '../../../service/cosecha.service';
 import { Cosecha } from '../../../model/cosecha.model';
 import { CommonModule } from '@angular/common'; // 🔥 Importa CommonModule
@@ -32,21 +32,33 @@ export class CosechaListComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private cosechaService: CosechaService
+    private cosechaService: CosechaService,
+    private router: Router,
+
   ) {}
 
+  // ngOnInit() {
+  //   const cultivoId = Number(this.route.snapshot.paramMap.get('cultivoId'));
+  //   if (!isNaN(cultivoId)) {
+  //     this.cosechaService.getCosechasByCultivo(cultivoId).subscribe({
+  //       next: (data) => {
+  //         console.log("✅ Cosechas obtenidas:", data);
+  //         this.cosechas = data;
+  //       },
+  //       error: (err) => {
+  //         console.error('Error obteniendo cosechas:', err);
+  //       }
+  //     });
+  //   }
+  // }
   ngOnInit() {
-    const cultivoId = Number(this.route.snapshot.paramMap.get('cultivoId'));
-    if (!isNaN(cultivoId)) {
-      this.cosechaService.getCosechasByCultivo(cultivoId).subscribe({
-        next: (data) => {
-          console.log("✅ Cosechas obtenidas:", data);
-          this.cosechas = data;
-        },
-        error: (err) => {
-          console.error('Error obteniendo cosechas:', err);
-        }
-      });
+    this.cultivoId = Number(this.route.snapshot.paramMap.get('cultivoId'));
+    if (!isNaN(this.cultivoId) && this.cultivoId > 0) {
+      this.cargarCosechas();
+    } else {
+      console.error("⚠️ Error: `cultivoId` es inválido:", this.cultivoId);
+      alert("Error: No se encontró el ID del cultivo.");
+      this.router.navigate(['/cultivos']); // Redirigir si hay un error
     }
   }
 
@@ -60,12 +72,24 @@ export class CosechaListComponent implements OnInit {
     this.mostrarFormulario = true;
   }
 
-  agregarCosecha() {
-    this.nuevaCosecha.cultivoId = this.cultivoId; // Asignamos el cultivo actual
-    this.cosechaService.addCosecha(this.nuevaCosecha).subscribe(() => {
-      this.mostrarFormulario = false;
-      this.cargarCosechas(); // Recargar la lista después de agregar
-    });
+  // agregarCosecha() {
+  //   this.nuevaCosecha.cultivoId = this.cultivoId; // Asignamos el cultivo actual
+  //   this.cosechaService.addCosecha(this.nuevaCosecha).subscribe(() => {
+  //     this.mostrarFormulario = false;
+  //     this.cargarCosechas(); // Recargar la lista después de agregar
+  //   });
+  // }
+  // agregarCosecha(cosecha: Cosecha): Observable<Cosecha> {
+  //   return this.http.post<Cosecha>(
+  //     `${this.apiUrl}/cultivo/${cosecha.cultivoId}`, 
+  //     cosecha, 
+  //     { headers: this.getAuthHeaders() }
+  //   );
+  // }
+
+  irAFormularioCosecha() {
+    console.log("🔗 Navegando a `/cultivos/" + this.cultivoId + "/cosechas/nueva`");
+    this.router.navigate([`/cultivos/${this.cultivoId}/cosechas/nueva`]);
   }
 }
 
