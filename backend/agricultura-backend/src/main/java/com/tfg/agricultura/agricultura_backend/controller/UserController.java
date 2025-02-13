@@ -43,16 +43,4 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
-
-//    @PostMapping("/login")
-//    public ResponseEntity<String> login(@RequestBody @Valid LoginRequest loginRequest) {
-//        boolean isAuthenticated = loginService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
-//        if (isAuthenticated) {
-//            return ResponseEntity.ok("Login successful!");
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
-//        }
-//    }
-
-
 }

@@ -1,3 +1,52 @@
+package com.tfg.agricultura.agricultura_backend.controller;
+
+import com.tfg.agricultura.agricultura_backend.dto.UserDTO;
+import com.tfg.agricultura.agricultura_backend.model.User;
+import com.tfg.agricultura.agricultura_backend.service.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/users")
+public class AuthController {
+
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
+
+//    @PostMapping("/register")
+//    public ResponseEntity<String> registerUser(@RequestBody User user) {
+//        try {
+//            userService.registerUser(user); // Ahora recibe un `User` en lugar de `UserDTO`
+//            return ResponseEntity.ok("Usuario registrado exitosamente.");
+//        } catch (RuntimeException e) {
+//            return ResponseEntity.badRequest().body("Error en el registro: " + e.getMessage());
+//        }
+//    }
+
+//    @PostMapping("/register")
+//    public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
+//        try {
+//            userService.registerUser(userDTO);
+//            return ResponseEntity.ok("Usuario registrado exitosamente.");
+//        } catch (RuntimeException e) {
+//            return ResponseEntity.badRequest().body("Error en el registro: " + e.getMessage());
+//        }
+//    }
+//    @PostMapping("/register")
+//    public ResponseEntity<User> registerUser(@RequestBody User user) {
+//        User newUser = userService.registerUser(user);
+//        return ResponseEntity.ok(newUser);
+//    }
+}
+
+
+
 //package com.tfg.agricultura.agricultura_backend.controller;
 //
 //import com.tfg.agricultura.agricultura_backend.security.JwtTokenProvider; // Asegúrate de que tienes esta clase

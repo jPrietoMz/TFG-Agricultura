@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../service/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';  // ✅ Importa FormsModule correctamente
 
 @Component({
@@ -8,7 +8,9 @@ import { FormsModule } from '@angular/forms';  // ✅ Importa FormsModule correc
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css'],
   standalone: true,  // ✅ Standalone component
-  imports: [FormsModule]  // ✅ Forma correcta de importar módulos en standalone components
+  imports: [FormsModule,
+            RouterModule,
+  ]  // ✅ Forma correcta de importar módulos en standalone components
 })
 export class LoginFormComponent {
   loginData = { username: '', password: '' };

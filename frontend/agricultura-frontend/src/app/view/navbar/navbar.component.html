@@ -1,8 +1,11 @@
 <nav class="navbar">
-  <ul>
-    <li><a routerLink="/home">Inicio</a></li>
-    <li><a routerLink="/cultivos">Cultivos</a></li>
-    <li><a routerLink="/cosecha">Cosecha</a></li>
-    <li><a routerLink="/tratamiento">Tratamiento</a></li>
-  </ul>
+  <div class="navbar-container">
+    <a routerLink="/inicio" class="logo">🌱 AgroApp</a>
+    <ul class="nav-links">
+      <li><a routerLink="/cultivos">Cultivos</a></li>
+      <li><a routerLink="/cosechas">Cosechas</a></li>
+      <li><a routerLink="/tratamientos">Tratamientos</a></li>
+      <li><button class="logout-button" (click)="logout()">Salir</button></li>
+    </ul>
+  </div>
 </nav>

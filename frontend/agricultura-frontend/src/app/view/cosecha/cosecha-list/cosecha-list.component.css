@@ -1,77 +1,59 @@
 .cosecha-container {
-    background-color: green;
-    padding: 20px;
-    color: white;
-    text-align: center;
-    border-radius: 8px;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    background-color: white;
-    color: green;
-    margin: 5px;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  .cosecha-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-  }
-  app-back-button {
-    margin-left: auto;
-  }
+  background-color: green;
+  padding: 20px;
+  color: white;
+  text-align: center;
+  border-radius: 8px;
+}
 
-  /* 🟢 Estilo general de la tabla */
+.cosecha-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+app-back-button {
+  margin-left: auto;
+}
+
+/* Tabla de cosechas */
 table {
-  width: 100%; /* ✅ Se adapta al ancho de la página */
-  border-collapse: collapse; /* ✅ Une los bordes de las celdas */
-  border: 2px solid black; /* ✅ Bordes negros */
-  background-color: white; /* ✅ Fondo blanco */
-}
-
-/* 🟢 Bordes de las celdas */
-th, td {
-  border: 1px solid black; /* ✅ Bordes negros para cada celda */
-  padding: 10px; /* ✅ Espaciado interno */
-  text-align: left; /* ✅ Alinear texto a la izquierda */
-}
-
-/* 🟢 Estilos para el encabezado */
-th {
-  background-color: #f2f2f2; /* ✅ Fondo gris para encabezados */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
   color: black;
 }
 
-/* 🔄 Hacer la tabla responsive en pantallas pequeñas */
-@media screen and (max-width: 768px) {
-  table {
-      width: 100%;
-      display: block;
-      overflow-x: auto; /* ✅ Permitir desplazamiento horizontal */
-      white-space: nowrap; /* ✅ Evitar saltos de línea en celdas */
-  }
+th, td {
+  border: 2px solid black;
+  padding: 10px;
+  text-align: center;
+}
 
-  th, td {
-      padding: 8px; /* ✅ Reducir padding en pantallas pequeñas */
-  }
+th {
+  background-color: #4CAF50;
+  color: white;
+}
 
-  .header-buttons {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-  .btn-agregar {
-      background-color: blue;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-  }
+/* Botón de añadir tratamiento */
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: darkblue;
 }

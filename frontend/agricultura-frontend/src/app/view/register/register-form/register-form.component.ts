@@ -1,18 +1,37 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
   standalone: true,
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule,
+            RouterModule,
+  ]
 })
 export class RegisterFormComponent {
-  registerData = { username: '', password: '' };
+  username: string = '';  // 🔥 Definimos username
+  password: string = '';  // 🔥 Definimos password
 
-  onRegister() {
-    console.log('Registro con:', this.registerData);
-    // Aquí iría la conexión con el backend
+  constructor(private http: HttpClient, private router: Router) {}
+
+  register() {
+    const registerData = { username: this.username, password: this.password };
+
+    this.http.post('http://localhost:8080/api/users/register', registerData)
+      .subscribe({
+        next: (response) => {
+          console.log('✅ Registro exitoso:', response);
+          alert('Registro exitoso. Ahora puedes iniciar sesión.');
+          this.router.navigate(['/login']); // 🔥 Redirige al login
+        },
+        error: (err) => {
+          console.error('❌ Error en el registro:', err);
+          alert('Error en el registro: ' + (err.error.message || 'Inténtalo de nuevo.'));
+        }
+      });
   }
 }

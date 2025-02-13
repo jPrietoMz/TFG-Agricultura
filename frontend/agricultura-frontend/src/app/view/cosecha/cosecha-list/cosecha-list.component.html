@@ -1,10 +1,8 @@
 <div class="cosecha-header">
   <h2>Lista de Cosechas</h2>
   <app-back-button></app-back-button>
-  <button class="btn-agregar" [routerLink]="['/cultivos', cultivoId, 'cosechas', 'nueva']">
-    ➕ Añadir Cosecha
-  </button>
 </div>
+<button (click)="irAFormularioCosecha()">Añadir Cosecha</button>
 <div class="table-container">
   <table class="responsive-table">
     <thead>

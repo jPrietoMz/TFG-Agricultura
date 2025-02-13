@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
+  standalone: true,
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  standalone: true,
+  imports: [CommonModule, RouterModule]
 })
 export class NavbarComponent {
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token'); // Comprueba si hay un token guardado
-  }
+  constructor(private router: Router) {}
 
-  logout(): void {
-    localStorage.removeItem('token'); // Elimina el token de autenticación
+  logout() {
+    localStorage.removeItem('token'); // Eliminar el token del usuario
+    this.router.navigate(['/login']); // Redirigir a la pantalla de inicio de sesión
   }
 }
