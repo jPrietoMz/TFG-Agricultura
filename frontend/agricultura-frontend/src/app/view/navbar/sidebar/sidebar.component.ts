@@ -18,4 +18,19 @@ export class SidebarComponent {
     localStorage.removeItem('token'); // Eliminar token
     this.router.navigate(['/login']); // Redirigir al login
   }
+  toggleSidebar() {
+    this.isOpen = !this.isOpen;
+  }
+
+  navigateTo(route: string) {
+    this.router.navigateByUrl(route).then(() => {
+      console.log("🔹 Navegación exitosa a:", route);
+      this.isOpen = false; // Cierra la sidebar después de navegar
+    }).catch(err => {
+      console.error("❌ Error al navegar a", route, err);
+    });
+  }
+  
 }
+
+

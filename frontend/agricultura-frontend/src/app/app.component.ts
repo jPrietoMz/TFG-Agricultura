@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  
   isLoggedIn() {
     return !!localStorage.getItem('token');
   }

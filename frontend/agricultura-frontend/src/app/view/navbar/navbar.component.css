@@ -18,7 +18,14 @@
 }
 
 /* Asegurar que el icono del menú no se superponga con el texto */
-.menu-icon {
+.menu-btn {
+  position: left;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
   font-size: 24px;
+  color: white;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }

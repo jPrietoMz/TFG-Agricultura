@@ -3,17 +3,26 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 250px;
+  width: 170px;
   height: 100%;
   background-color: #2E7D32; /* Verde oscuro */
   padding-top: 60px;
   transition: transform 0.3s ease-in-out;
   transform: translateX(-100%);
+  border-right: 2px solid white; /* 👉 Línea blanca de separación */
+
 }
 
 .sidebar.open {
   transform: translateX(0);
 }
+
+.sidebar ul {
+  list-style: none;  /* ❌ Elimina los puntos de la lista */
+  padding: 0;        /* Elimina el padding extra */
+  margin: 0;         /* Evita cualquier margen adicional */
+}
+
 
 /* Estilo de los enlaces del menú */
 .sidebar a {
@@ -21,9 +30,48 @@
   padding: 15px;
   color: white;
   text-decoration: none;
+  text-align: right;
   font-size: 18px;
 }
 
 .sidebar a:hover {
   background-color: #1B5E20;
 }
+
+/* Botón de Cerrar Sesión */
+.logout-button {
+  background-color: #D32F2F; /* Rojo */
+  color: white;
+  border: none;
+  padding: 5px;
+  width: 100%;
+  text-align: right;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+  background-color: #B71C1C; /* Rojo más oscuro al pasar el mouse */
+}
+
+/* Botón de cerrar Sidebar */
+.close-sidebar-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.close-sidebar-btn:hover {
+  transform: scale(1.2);
+}
+
+
