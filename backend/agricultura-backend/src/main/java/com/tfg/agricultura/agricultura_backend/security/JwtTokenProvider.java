@@ -17,17 +17,27 @@ public class JwtTokenProvider {
 
     private final String secretKey = "mySuperSecretKeyForJwtTokens12345"; // Cambia por tu clave secreta
     private final long jwtExpirationInMs = 86400000; // 1 día en milisegundos
-//    private final long jwtExpirationInMs = 60000; // 1 minuto
+//    private final long jwtExpirationInMs = 60000; // 1 minuto 86400000
 
 
-    public String generateToken(String username) {
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
-                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
-                .compact();
-    }
+//    public String generateToken(String username) {
+//        return Jwts.builder()
+//                .setSubject(username)
+//                .setIssuedAt(new Date())
+//                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
+//                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
+//                .compact();
+//    }
+        public String generateToken(String username) {
+            return Jwts.builder()
+                    .setSubject(username)
+                    .claim("role", "USER") // 🔹 Puedes incluir más datos aquí
+                    .setIssuedAt(new Date())
+                    .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationInMs))
+                    .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
+                    .compact();
+        }
+
 
     public String getUsername(String token) {
         return Jwts.parserBuilder()
@@ -38,11 +48,21 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
+//    public boolean validateToken(String token) {
+//        try {
+//            Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes())).build().parseClaimsJws(token);
+//            return true;
+//        } catch (JwtException | IllegalArgumentException e) {
+//            return false;
+//        }
+//    }
+
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes())).build().parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
+            System.out.println("❌ Token inválido: " + e.getMessage());
             return false;
         }
     }

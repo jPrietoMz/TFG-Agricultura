@@ -5,24 +5,33 @@ import com.tfg.agricultura.agricultura_backend.model.Cultivo;
 import com.tfg.agricultura.agricultura_backend.model.User;
 import com.tfg.agricultura.agricultura_backend.repository.CultivoRepository;
 import com.tfg.agricultura.agricultura_backend.repository.UserRepository;
+import com.tfg.agricultura.agricultura_backend.security.JwtTokenProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final CultivoRepository cultivoRepository;
+    private final JwtTokenProvider jwtTokenProvider; // 🔹 Inyectamos el generador de tokens
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, CultivoRepository cultivoRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
+                       CultivoRepository cultivoRepository, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.cultivoRepository = cultivoRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    // 🔹 Registrar usuario con validación
     public void registerUser(UserDTO userDTO) {
         if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
             throw new RuntimeException("El nombre de usuario ya está en uso");
@@ -39,28 +48,35 @@ public class UserService {
         assignInitialCultivos(user);
     }
 
+    // 🔹 Asignar cultivos iniciales al usuario
     private void assignInitialCultivos(User user) {
-        List<Cultivo> cultivosIniciales = cultivoRepository.findAll(); // Obtiene todos los cultivos existentes
-        user.setCultivos(cultivosIniciales); // Relaciona los cultivos con el usuario
-        userRepository.save(user); // Guarda los cambios
+        List<Cultivo> cultivosIniciales = cultivoRepository.findAll();
+        user.setCultivos(cultivosIniciales);
+        userRepository.save(user);
     }
 
-    // Otros métodos...
-
-    public boolean authenticateUser(String username, String password) {
+    // 🔹 Método para autenticar y generar token
+    public String authenticateAndGenerateToken(String username, String password) {
         Optional<User> userOptional = userRepository.findByUsername(username);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            System.out.println("Password ingresada: " + password);
-            System.out.println("Hash almacenado: " + user.getPassword());
             boolean match = passwordEncoder.matches(password, user.getPassword());
-            System.out.println("¿La contraseña coincide?: " + match);
-            return match;
-        } else {
-            throw new RuntimeException("Usuario no encontrado");
+
+            if (match) {
+                // 🔹 Generar token JWT
+                String token = jwtTokenProvider.generateToken(username);
+
+                // 🔹 Configurar Spring Security con el usuario autenticado
+                UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+                        user.getUsername(), user.getPassword(), List.of());
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                return token; // 🔹 Devolvemos el token al frontend
+            }
         }
+        throw new RuntimeException("Credenciales inválidas");
     }
-
-
 }
