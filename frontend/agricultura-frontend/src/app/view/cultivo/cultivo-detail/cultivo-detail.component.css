@@ -1,40 +1,55 @@
 .cultivo-detail-container {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Botón de cosecha */
+.btn-cosecha {
+  background-color: rgb(245, 222, 179); /* Color arena */
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+/* Botón de tratamientos */
+.btn-tratamientos {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.btn-cosecha:hover {
+  background-color: goldenrod;
+}
+
+.btn-tratamientos:hover {
+  background-color: darkblue;
+}
+
+/* 📱 Media query para pantallas pequeñas */
+@media (max-width: 600px) {
   .button-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
+      flex-direction: column; /* 📌 Apilar botones verticalmente */
+      align-items: center;
   }
-  
-  .btn-cosecha {
-    background-color: rgb(245, 222, 179); /* Azul */
-    color: black;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-  }
-  
+
+  .btn-cosecha,
   .btn-tratamientos {
-    background-color: blue; /* Azul */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
+      width: 80%; /* 🔥 Ocupar casi todo el ancho */
+      max-width: 250px;
   }
-  
-  .btn-cosechas:hover {
-    background-color: goldenrod;
-  }
-  
-  .btn-tratamientos:hover {
-    background-color: darkblue;
-  }
-  
+}
