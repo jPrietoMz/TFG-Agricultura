@@ -5,6 +5,7 @@ import { Tratamiento } from '../../../model/tratamiento.model';
 import { CommonModule } from '@angular/common';
 import { BackButtonComponent } from '../../../shared/components/back-button/back-button.component';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tratamiento-list',
@@ -36,9 +37,32 @@ export class TratamientoListComponent implements OnInit {
         }
       });
     }
+    this.cargarTratamientos();
   }
 
   irAFormularioTratamiento() {
     this.router.navigate([`/cultivos/${this.cultivoId}/tratamientos/nuevo`]);
+  }
+
+  cargarTratamientos(): void {
+    this.tratamientoService.obtenerTratamientos().subscribe({
+      next: (data: Tratamiento[]) => {
+        this.tratamientos = data; // 🔄 Actualiza la lista de tratamientos
+        console.log('✅ Tratamientos cargados correctamente');
+      },
+      error: (err) => {
+        console.error('❌ Error al cargar tratamientos:', err);
+      }
+    });
+  }
+
+  eliminarTratamiento(id: number): void {
+    if (confirm('¿Estás seguro de que quieres eliminar este tratamiento?')) {
+      this.tratamientoService.eliminarTratamiento(id).subscribe(
+        () => {
+          alert('Tratamiento eliminado con éxito.');
+          this.cargarTratamientos(); // 🔄 Refrescar la lista después de eliminar
+        });
+    }
   }
 }

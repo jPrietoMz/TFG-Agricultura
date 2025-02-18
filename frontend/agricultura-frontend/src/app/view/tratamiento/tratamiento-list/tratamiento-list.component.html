@@ -14,6 +14,7 @@
       <th>Unidad</th>
       <th>Método</th>
       <th>Observaciones</th>
+      <th>Acciones</th> <!-- ✅ Nueva columna -->
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,11 @@
       <td>{{ tratamiento.unidadMedida }}</td>
       <td>{{ tratamiento.metodoAplicacion }}</td>
       <td>{{ tratamiento.observaciones }}</td>
+      <td>
+        <button (click)="eliminarTratamiento(tratamiento.id)" class="btn-eliminar">
+          🗑️ Eliminar
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -27,4 +27,21 @@ export class TratamientoService {
   addTratamiento(tratamiento: Tratamiento): Observable<Tratamiento> {
     return this.http.post<Tratamiento>(`${this.apiUrl}/cultivo/${tratamiento.cultivoId}`, tratamiento, { headers: this.getAuthHeaders() });
   }
+
+  obtenerTratamientos(): Observable<Tratamiento[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  eliminarTratamiento(id: number): Observable<void> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
+  }
+
+  private obtenerHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token'); // ✅ Recupera el token almacenado
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
 }

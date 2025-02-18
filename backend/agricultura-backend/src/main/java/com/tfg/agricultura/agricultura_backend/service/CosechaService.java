@@ -45,13 +45,17 @@ public class CosechaService {
     }
 
     // Eliminar una cosecha
-    public void eliminarCosecha(Long cosechaId) {
-        cosechaRepository.deleteById(cosechaId);
+    public void eliminarCosecha(Long id) {
+        if (!cosechaRepository.existsById(id)) {
+            throw new RuntimeException("La cosecha con ID " + id + " no existe.");
+        }
+        cosechaRepository.deleteById(id);
     }
-
     // Obtener una cosecha por ID
     public Cosecha obtenerCosecha(Long cosechaId) {
         return cosechaRepository.findById(cosechaId)
                 .orElseThrow(() -> new RuntimeException("Cosecha no encontrada"));
     }
+
+
 }

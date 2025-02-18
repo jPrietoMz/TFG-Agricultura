@@ -11,6 +11,7 @@
         <th>Fecha Fin</th>
         <th>Kilos Obtenidos</th>
         <th>Precio Obtenido</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +20,9 @@
         <td>{{ cosecha.fechaFin }}</td>
         <td>{{ cosecha.kilosObtenidos }}</td>
         <td>{{ cosecha.precioObtenido }}</td>
+        <td>
+          <button class="btn-delete" (click)="eliminarCosecha(cosecha.id)">🗑️ Eliminar</button>
+        </td>
       </tr>
     </tbody>
   </table>

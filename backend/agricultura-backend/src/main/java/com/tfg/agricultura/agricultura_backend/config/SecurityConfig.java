@@ -3,6 +3,7 @@ package com.tfg.agricultura.agricultura_backend.config;
 import com.tfg.agricultura.agricultura_backend.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -36,6 +37,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login", "/api/users/register").permitAll() // ✅ Permitir login y registro
                         .requestMatchers("/api/cultivos/**", "/api/cosechas/**", "/api/tratamientos/**").authenticated() // 🔒 Protegido
+                        .requestMatchers(HttpMethod.DELETE, "/api/cosechas/**").authenticated() // Proteger DELETE
                         .anyRequest().authenticated() // 🔒 Proteger todo lo demás
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // ✅ Aplicar filtro JWT antes de UsernamePassword

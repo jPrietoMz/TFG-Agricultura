@@ -57,3 +57,17 @@ button {
 button:hover {
   background-color: darkblue;
 }
+
+.btn-eliminar {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-eliminar:hover {
+  background-color: darkred;
+}
+

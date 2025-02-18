@@ -49,4 +49,16 @@ export class CosechaService {
       { headers: this.getAuthHeaders() }
     );
   }
+
+  eliminarCosecha(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.obtenerHeaders() });
+  }
+
+  private obtenerHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token'); // ✅ Recupera el token almacenado
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
 }

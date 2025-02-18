@@ -45,12 +45,12 @@ public class CosechaController {
     }
 
 
-    // Eliminar una cosecha
-    @DeleteMapping("/{cosechaId}")
-    public ResponseEntity<Void> eliminarCosecha(@PathVariable Long cosechaId) {
-        cosechaService.eliminarCosecha(cosechaId);
-        return ResponseEntity.noContent().build();
-    }
+//    // Eliminar una cosecha
+//    @DeleteMapping("/{cosechaId}")
+//    public ResponseEntity<Void> eliminarCosecha(@PathVariable Long cosechaId) {
+//        cosechaService.eliminarCosecha(cosechaId);
+//        return ResponseEntity.noContent().build();
+//    }
 
     // Obtener una cosecha específica
     @GetMapping("/{cosechaId}")
@@ -58,5 +58,11 @@ public class CosechaController {
         Cosecha cosecha = cosechaService.obtenerCosecha(cosechaId);
         return ResponseEntity.ok(cosecha);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarCosecha(@PathVariable Long id) {
+        cosechaService.eliminarCosecha(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

@@ -37,20 +37,6 @@ export class CosechaListComponent implements OnInit {
 
   ) {}
 
-  // ngOnInit() {
-  //   const cultivoId = Number(this.route.snapshot.paramMap.get('cultivoId'));
-  //   if (!isNaN(cultivoId)) {
-  //     this.cosechaService.getCosechasByCultivo(cultivoId).subscribe({
-  //       next: (data) => {
-  //         console.log("✅ Cosechas obtenidas:", data);
-  //         this.cosechas = data;
-  //       },
-  //       error: (err) => {
-  //         console.error('Error obteniendo cosechas:', err);
-  //       }
-  //     });
-  //   }
-  // }
   ngOnInit() {
     this.cultivoId = Number(this.route.snapshot.paramMap.get('cultivoId'));
     if (!isNaN(this.cultivoId) && this.cultivoId > 0) {
@@ -72,24 +58,18 @@ export class CosechaListComponent implements OnInit {
     this.mostrarFormulario = true;
   }
 
-  // agregarCosecha() {
-  //   this.nuevaCosecha.cultivoId = this.cultivoId; // Asignamos el cultivo actual
-  //   this.cosechaService.addCosecha(this.nuevaCosecha).subscribe(() => {
-  //     this.mostrarFormulario = false;
-  //     this.cargarCosechas(); // Recargar la lista después de agregar
-  //   });
-  // }
-  // agregarCosecha(cosecha: Cosecha): Observable<Cosecha> {
-  //   return this.http.post<Cosecha>(
-  //     `${this.apiUrl}/cultivo/${cosecha.cultivoId}`, 
-  //     cosecha, 
-  //     { headers: this.getAuthHeaders() }
-  //   );
-  // }
-
   irAFormularioCosecha() {
     console.log("🔗 Navegando a `/cultivos/" + this.cultivoId + "/cosechas/nueva`");
     this.router.navigate([`/cultivos/${this.cultivoId}/cosechas/nueva`]);
+  }
+
+  eliminarCosecha(id: number) {
+    if (confirm("¿Estás seguro de que quieres eliminar esta cosecha?")) {
+      this.cosechaService.eliminarCosecha(id).subscribe(() => {
+        alert('Tratamiento eliminado con éxito.');
+        this.cargarCosechas();
+      });
+    }
   }
 }
 
