@@ -1,31 +1,82 @@
-/* Color verde para que coincida con el de los botones */
+/* Estilos generales de la barra de navegación */
 .navbar {
   background-color: #2E7D32; /* Verde oscuro */
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  padding: 10px 15px;
   font-family: 'Arial', sans-serif;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-/* Centrar el texto y el logo */
-.navbar-title {
-  flex: 1;
-  text-align: center;
-}
-
-/* Asegurar que el icono del menú no se superponga con el texto */
+/* Botón de menú para dispositivos móviles */
 .menu-btn {
-  position: left;
-  top: 15px;
-  right: 15px;
   background: none;
   border: none;
   font-size: 24px;
   color: white;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
+}
+
+.menu-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Estilo del nombre de la app */
+.app-name {
+  flex: 1;
+  text-align: center;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+/* Logo ajustable */
+.logo {
+  width: 40px; /* Ajusta según necesidad */
+  height: auto;
+}
+
+/* 📱 Media Queries para Responsividad */
+
+/* 🔹 Estilos para pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+  .navbar {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  .app-name {
+    font-size: 18px;
+  }
+
+  .logo {
+    width: 30px; /* Reducir tamaño del logo en móviles */
+  }
+
+  .menu-btn {
+    font-size: 20px;
+  }
+}
+
+/* 🔹 Estilos para pantallas medianas (tablets) */
+@media (max-width: 900px) {
+  .navbar {
+    font-size: 17px;
+  }
+
+  .app-name {
+    font-size: 20px;
+  }
+
+  .logo {
+    width: 35px;
+  }
 }
