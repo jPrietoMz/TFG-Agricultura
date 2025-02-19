@@ -50,8 +50,8 @@ input {
 }
 
 button {
-  background-color: white;
-  color: green;
+  background-color: rgb(183, 183, 183);
+  color: rgb(0, 0, 0);
   padding: 10px;
   border: none;
   cursor: pointer;
