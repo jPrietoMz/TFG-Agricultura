@@ -15,6 +15,11 @@ public class Tratamiento {
     @JoinColumn(name = "cultivo_id", nullable = false)
     private Cultivo cultivo;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private User usuario;
+
+
     @Temporal(TemporalType.DATE)
     private Date fechaAplicacion;
 
@@ -62,4 +67,12 @@ public class Tratamiento {
 
     public String getObservaciones() { return observaciones; }
     public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
+
+    public User getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
+    }
 }

@@ -11,7 +11,6 @@ export class CosechaResolver implements Resolve<Cosecha[]> {
   constructor(private cosechaService: CosechaService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Cosecha[]> {
-    const cultivoId = route.paramMap.get('cultivoId')!;
-    return this.cosechaService.getCosechasByCultivo(Number(cultivoId));
+    return this.cosechaService.getCosechasByCultivo(); // 🔹 Eliminamos cultivoId
   }
 }

@@ -7,6 +7,7 @@ export class Tratamiento {
   unidadMedida: string;
   metodoAplicacion: string;
   observaciones: string;
+  usuarioId?: number;
 
   constructor(id: number, cultivoId: number, fechaAplicacion: string, producto: string, dosis: number, unidadMedida: string, metodoAplicacion: string, observaciones: string) {
     this.id = id;

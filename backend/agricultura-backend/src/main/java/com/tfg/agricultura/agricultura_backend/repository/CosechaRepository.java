@@ -8,4 +8,6 @@ import java.util.List;
 public interface CosechaRepository extends JpaRepository<Cosecha, Long> {
     // Retorna las cosechas de un usuario específico
     List<Cosecha> findByCultivoId(Long cultivoId);
+    List<Cosecha> findByUsuarioId(Long usuarioId);
+
 }

@@ -14,8 +14,18 @@ import { BackButtonComponent } from '../../../shared/components/back-button/back
   imports: [CommonModule, FormsModule, BackButtonComponent]
 })
 export class TratamientoFormComponent {
-  nuevoTratamiento: Tratamiento = new Tratamiento(0, 0, '', '', 0, '', '', '');
-
+  cultivoId!: number;
+  nuevoTratamiento: Tratamiento = {
+    id: 0,
+    cultivoId: 0,
+    fechaAplicacion: '',
+    producto: '',
+    dosis: 0,
+    unidadMedida: '',
+    metodoAplicacion: '',
+    observaciones: ''
+  };
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -23,15 +33,61 @@ export class TratamientoFormComponent {
   ) {}
 
   ngOnInit() {
-    const cultivoId = Number(this.route.snapshot.paramMap.get('cultivoId'));
-    if (!isNaN(cultivoId)) {
-      this.nuevoTratamiento.cultivoId = cultivoId;
+    const cultivoId = this.route.snapshot.paramMap.get('cultivoId');
+  
+    if (cultivoId && !isNaN(Number(cultivoId))) {
+      this.cultivoId = Number(cultivoId);
+      this.nuevoTratamiento.cultivoId = this.cultivoId; // ✅ Se asigna correctamente
+      console.log("✅ Cultivo ID asignado:", this.cultivoId);
+    } else {
+      console.error("❌ Error: `cultivoId` no es válido:", cultivoId);
+      alert("Error: No se encontró el ID del cultivo.");
+      this.router.navigate(['/cultivos']); // Redirigir si hay un error
     }
   }
-
+  
   guardarTratamiento() {
-    this.tratamientoService.addTratamiento(this.nuevoTratamiento).subscribe(() => {
-      this.router.navigate(['/cultivos', this.nuevoTratamiento.cultivoId, 'tratamientos']);
-    });
-  }
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert("⚠️ Error: No se encontró el token de autenticación.");
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Decodificar el token para obtener el usuario_id
+  const payload = JSON.parse(atob(token.split('.')[1])); // Decodificar el JWT
+  const usuarioId = payload.userId; // Asegúrate de que el backend incluye `userId` en el token
+
+  this.nuevoTratamiento.usuarioId = usuarioId; // ✅ Asignamos el usuario
+  console.log("🛠️ Token enviado en la petición:", `"Bearer ${token}"`); // 🔍 Depuración
+  console.log("🌱 Enviando cosecha con usuarioId:", this.nuevoTratamiento.usuarioId);
+
+  this.tratamientoService.addTratamiento(this.nuevoTratamiento).subscribe({
+    next: (data) => {
+      console.log('✅ Tratamiento guardado:', data);
+      alert('Cosecha guardada exitosamente');
+      this.router.navigate(['/cultivos', this.cultivoId, 'cosechas']); // Redirigir a la lista de cosechas
+    },
+    error: (err) => {
+      console.error('❌ Error guardando cosecha:', err);
+      alert('Error al guardar la cosecha. Revisa la consola para más detalles.');
+    }
+  });
+}
+  
+  //   console.log("🌱 Enviando tratamiento (sin usuarioId, backend lo asigna):", this.nuevoTratamiento);
+  
+  //   this.tratamientoService.addTratamiento(this.nuevoTratamiento).subscribe({
+  //     next: (data) => {
+  //       console.log('✅ Tratamiento guardado:', data);
+  //       alert('Tratamiento guardado exitosamente');
+  //       this.router.navigate(['/cultivos', this.cultivoId, 'tratamientos']);
+  //     },
+  //     error: (err) => {
+  //       console.error('❌ Error guardando tratamiento:', err);
+  //       alert('Error al guardar el tratamiento. Revisa la consola para más detalles.');
+  //     }
+  //   });
+  // }
+  
 }

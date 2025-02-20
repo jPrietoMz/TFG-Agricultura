@@ -41,32 +41,35 @@ export class CosechaFormComponent {
       this.router.navigate(['/cultivos']); // Redirigir si hay un error
     }
   }
-  // ngOnInit() {
-  //   const cultivoId = Number(this.route.snapshot.paramMap.get('cultivoId'));
-  //   if (!isNaN(cultivoId)) {
-  //     this.nuevaCosecha.cultivoId = cultivoId;
-  //   }
-  // }
 
-  // guardarCosecha() {
-  //   this.cosechaService.addCosecha(this.nuevaCosecha).subscribe(() => {
-  //     this.router.navigate(['/cultivos', this.nuevaCosecha.cultivoId, 'cosechas']);
-  //   });
-  // }
   guardarCosecha() {
-    console.log("🌱 Enviando cosecha con cultivoId:", this.nuevaCosecha.cultivoId);
-
-    this.cosechaService.agregarCosecha(this.nuevaCosecha).subscribe({
-      next: (data) => {
-        console.log('✅ Cosecha guardada:', data);
-        alert('Cosecha guardada exitosamente');
-        this.router.navigate(['/cultivos', this.cultivoId, 'cosechas']); // Redirigir a la lista de cosechas
-      },
-      error: (err) => {
-        console.error('❌ Error guardando cosecha:', err);
-        alert('Error al guardar la cosecha. Revisa la consola para más detalles.');
-      }
-    });
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert("⚠️ Error: No se encontró el token de autenticación.");
+    this.router.navigate(['/login']);
+    return;
   }
+
+  // Decodificar el token para obtener el usuario_id
+  const payload = JSON.parse(atob(token.split('.')[1])); // Decodificar el JWT
+  const usuarioId = payload.userId; // Asegúrate de que el backend incluye `userId` en el token
+
+  this.nuevaCosecha.usuarioId = usuarioId; // ✅ Asignamos el usuario
+
+  console.log("🌱 Enviando cosecha con usuarioId:", this.nuevaCosecha.usuarioId);
+
+  this.cosechaService.agregarCosecha(this.nuevaCosecha).subscribe({
+    next: (data) => {
+      console.log('✅ Cosecha guardada:', data);
+      alert('Cosecha guardada exitosamente');
+      this.router.navigate(['/cultivos', this.cultivoId, 'cosechas']); // Redirigir a la lista de cosechas
+    },
+    error: (err) => {
+      console.error('❌ Error guardando cosecha:', err);
+      alert('Error al guardar la cosecha. Revisa la consola para más detalles.');
+    }
+  });
+}
+
   
 }

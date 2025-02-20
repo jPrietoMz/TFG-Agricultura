@@ -5,6 +5,7 @@ export class Cosecha {
     precioObtenido: number;
     fechaInicio : string;
     fechaFin : string;
+    usuarioId?: number; 
 
   
     constructor(id: number, kilosObtenidos: number, cultivoId: number, precioObtenido: number, fechaInicio: string, fechaFin: string) {

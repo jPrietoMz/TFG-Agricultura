@@ -49,7 +49,7 @@ export class CosechaListComponent implements OnInit {
   }
 
   cargarCosechas() {
-    this.cosechaService.getCosechasByCultivo(this.cultivoId).subscribe((data) => {
+    this.cosechaService.getCosechasByCultivo().subscribe((data) => {
       this.cosechas = data;
     });
   }

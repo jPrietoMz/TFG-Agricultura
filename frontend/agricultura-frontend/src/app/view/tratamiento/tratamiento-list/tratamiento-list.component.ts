@@ -26,28 +26,26 @@ export class TratamientoListComponent implements OnInit {
 
   ngOnInit() {
     this.cultivoId = Number(this.route.snapshot.paramMap.get('cultivoId'));
-    if (!isNaN(this.cultivoId)) {
-      this.tratamientoService.getTratamientosByCultivo(this.cultivoId).subscribe({
-        next: (data) => {
-          console.log("✅ Tratamientos obtenidos:", data);
-          this.tratamientos = data;
-        },
-        error: (err) => {
-          console.error('Error obteniendo tratamientos:', err);
-        }
-      });
+  
+    if (!isNaN(this.cultivoId) && this.cultivoId > 0) {
+      console.log("✅ Cultivo ID cargado en lista de tratamientos:", this.cultivoId);
+      this.cargarTratamientos();
+    } else {
+      console.error("❌ Error: `cultivoId` no es válido:", this.cultivoId);
+      alert("Error: No se encontró el ID del cultivo.");
+      this.router.navigate(['/cultivos']); // Redirigir si hay un error
     }
-    this.cargarTratamientos();
   }
+  
 
   irAFormularioTratamiento() {
     this.router.navigate([`/cultivos/${this.cultivoId}/tratamientos/nuevo`]);
   }
 
   cargarTratamientos(): void {
-    this.tratamientoService.obtenerTratamientos().subscribe({
+    this.tratamientoService.getTratamientosByCultivo().subscribe({
       next: (data: Tratamiento[]) => {
-        this.tratamientos = data; // 🔄 Actualiza la lista de tratamientos
+        this.tratamientos = data;
         console.log('✅ Tratamientos cargados correctamente');
       },
       error: (err) => {

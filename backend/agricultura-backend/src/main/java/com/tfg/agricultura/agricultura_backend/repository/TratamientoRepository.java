@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface TratamientoRepository extends JpaRepository<Tratamiento, Long> {
     List<Tratamiento> findByCultivoId(Long cultivoId);
+    List<Tratamiento> findByUsuarioId(Long usuarioId);
+
 }

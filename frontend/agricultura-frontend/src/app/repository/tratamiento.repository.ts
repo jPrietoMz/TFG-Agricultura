@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class TratamientoRepository {
   constructor(private tratamientoService: TratamientoService) {}
 
-  getTratamientosByCultivo(cultivoId: number): Observable<Tratamiento[]> {
-    return this.tratamientoService.getTratamientosByCultivo(cultivoId);
+  getTratamientosByCultivo(): Observable<Tratamiento[]> { 
+    return this.tratamientoService.getTratamientosByCultivo(); 
   }
 }

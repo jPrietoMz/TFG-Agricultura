@@ -19,6 +19,11 @@ public class Cosecha {
     @JoinColumn(name = "cultivo_id") // Relación con el cultivo
     private Cultivo cultivo;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private User usuario;
+
+
     public Cosecha() {}
 
     public Cosecha(LocalDate fechaInicio, LocalDate fechaFin, Double kilosObtenidos, Double precioObtenido, Cultivo cultivo) {
@@ -72,5 +77,12 @@ public class Cosecha {
 
     public void setCultivo(Cultivo cultivo) {
         this.cultivo = cultivo;
+    }
+
+    public User getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
     }
 }

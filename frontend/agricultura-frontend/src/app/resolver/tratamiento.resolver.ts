@@ -11,7 +11,6 @@ export class TratamientoResolver implements Resolve<Tratamiento[]> {
   constructor(private tratamientoService: TratamientoService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Tratamiento[]> {
-    const cultivoId = route.paramMap.get('cultivoId')!;
-    return this.tratamientoService.getTratamientosByCultivo(Number(cultivoId));
+    return this.tratamientoService.getTratamientosByCultivo();
   }
 }

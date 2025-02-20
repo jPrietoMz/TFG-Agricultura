@@ -1,7 +1,13 @@
 package com.tfg.agricultura.agricultura_backend.controller;
 
 import com.tfg.agricultura.agricultura_backend.model.Cosecha;
+import com.tfg.agricultura.agricultura_backend.model.User;
+import com.tfg.agricultura.agricultura_backend.repository.CosechaRepository;
+import com.tfg.agricultura.agricultura_backend.repository.UserRepository;
+import com.tfg.agricultura.agricultura_backend.security.JwtTokenProvider;
 import com.tfg.agricultura.agricultura_backend.service.CosechaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +18,16 @@ import java.util.List;
 public class CosechaController {
 
     private final CosechaService cosechaService;
+    private final CosechaRepository cosechaRepository;
+    private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public CosechaController(CosechaService cosechaService) {
+    @Autowired
+    public CosechaController(CosechaService cosechaService, CosechaRepository cosechaRepository, UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
         this.cosechaService = cosechaService;
+        this.cosechaRepository = cosechaRepository;
+        this.userRepository = userRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     // Listar cosechas de un cultivo
@@ -24,33 +37,44 @@ public class CosechaController {
         return ResponseEntity.ok(cosechas);
     }
 
-//    // Crear una cosecha asociada a un cultivo
-//    @PostMapping("/cultivo/{cultivoId}")
-//    public ResponseEntity<Cosecha> crearCosecha(@PathVariable Long cultivoId, @RequestBody Cosecha cosecha) {
-//        Cosecha nuevaCosecha = cosechaService.crearCosecha(cultivoId, cosecha);
-//        return ResponseEntity.ok(nuevaCosecha);
-//    }
     @PostMapping("/cultivo/{cultivoId}")
-    public ResponseEntity<Cosecha> crearCosecha(@PathVariable Long cultivoId, @RequestBody Cosecha cosecha) {
-        System.out.println("📩 Recibiendo solicitud de nueva cosecha: " + cosecha.toString());
-        System.out.println("🌱 Cultivo ID en URL: " + cultivoId);
+    public ResponseEntity<Cosecha> crearCosecha(
+            @PathVariable Long cultivoId,
+            @RequestBody Cosecha cosecha,
+            @RequestHeader("Authorization") String token) {
 
-        // ✅ Verificar si `cultivoId` está llegando correctamente
-        if (cultivoId == null || cultivoId <= 0) {
-            return ResponseEntity.badRequest().body(null);
-        }
-
-        Cosecha nuevaCosecha = cosechaService.crearCosecha(cultivoId, cosecha);
+        String username = jwtTokenProvider.getUsername(token.replace("Bearer ", ""));
+        Cosecha nuevaCosecha = cosechaService.crearCosecha(cultivoId, cosecha, username);
         return ResponseEntity.ok(nuevaCosecha);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Cosecha>> getCosechas(@RequestHeader("Authorization") String token) {
+        String username = jwtTokenProvider.getUsername(token.replace("Bearer ", ""));
+        User usuario = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-//    // Eliminar una cosecha
-//    @DeleteMapping("/{cosechaId}")
-//    public ResponseEntity<Void> eliminarCosecha(@PathVariable Long cosechaId) {
-//        cosechaService.eliminarCosecha(cosechaId);
-//        return ResponseEntity.noContent().build();
-//    }
+        List<Cosecha> cosechas = cosechaRepository.findByUsuarioId(usuario.getId());
+        return ResponseEntity.ok(cosechas);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<Cosecha> createCosecha(@RequestBody Cosecha cosecha, @RequestHeader("Authorization") String token) {
+        String username = jwtTokenProvider.getUsername(token);
+        User usuario = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        cosecha.setUsuario(usuario);
+        Cosecha nuevaCosecha = cosechaRepository.save(cosecha);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaCosecha);
+    }
+
+    @GetMapping("/mis-cosechas")
+    public ResponseEntity<List<Cosecha>> listarMisCosechas(@RequestHeader("Authorization") String token) {
+        List<Cosecha> cosechas = cosechaService.listarCosechasPorUsuario(token);
+        return ResponseEntity.ok(cosechas);
+    }
 
     // Obtener una cosecha específica
     @GetMapping("/{cosechaId}")

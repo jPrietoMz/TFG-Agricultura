@@ -13,20 +13,34 @@ export class TratamientoService {
   constructor(private http: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token')?.trim();
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
   }
 
-  getTratamientosByCultivo(cultivoId: number): Observable<Tratamiento[]> {
-    return this.http.get<Tratamiento[]>(`${this.apiUrl}/cultivo/${cultivoId}`, { headers: this.getAuthHeaders() });
+  getTratamientosByCultivo(): Observable<Tratamiento[]> {
+    return this.http.get<Tratamiento[]>(`${this.apiUrl}/mis-tratamientos`, { headers: this.getAuthHeaders() });
   }
 
   addTratamiento(tratamiento: Tratamiento): Observable<Tratamiento> {
-    return this.http.post<Tratamiento>(`${this.apiUrl}/cultivo/${tratamiento.cultivoId}`, tratamiento, { headers: this.getAuthHeaders() });
+    if (!tratamiento.cultivoId || tratamiento.cultivoId === 0) {
+      console.error("🚨 Error: `cultivoId` es inválido en `addTratamiento`:", tratamiento);
+      alert("⚠️ Error: No se ha seleccionado un cultivo válido.");
+      return new Observable<Tratamiento>();
+    }
+  
+    console.log("📡 Enviando petición POST a:", `${this.apiUrl}/cultivo/${tratamiento.cultivoId}`);
+    console.log("📤 Datos enviados:", tratamiento);
+  
+    return this.http.post<Tratamiento>(
+      `${this.apiUrl}/cultivo/${tratamiento.cultivoId}`, // ✅ Coincide con el backend
+      tratamiento, 
+      { headers: this.getAuthHeaders() }
+    );
   }
+  
 
   obtenerTratamientos(): Observable<Tratamiento[]> {
     return this.http.get<any[]>(this.apiUrl);
@@ -44,4 +58,5 @@ export class TratamientoService {
       'Content-Type': 'application/json'
     });
   }
+  
 }

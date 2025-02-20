@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class CosechaRepository {
   constructor(private cosechaService: CosechaService) {}
 
-  getCosechasByCultivo(cultivoId: number): Observable<Cosecha[]> {
-    return this.cosechaService.getCosechasByCultivo(cultivoId);
+  getCosechasByCultivo(): Observable<Cosecha[]> {  // ❌ Eliminamos cultivoId
+    return this.cosechaService.getCosechasByCultivo(); // 🔹 Llama al nuevo método sin parámetro
   }
 }
