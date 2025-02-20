@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CultivoService } from '../../../service/cultivo.service';
 import { Cultivo } from '../../../model/cultivo.model';
-import { RouterModule } from '@angular/router'; // 📌 Importar RouterModule
+import { RouterModule } from '@angular/router'; //  Importar RouterModule
 import { BackButtonComponent } from '../../../shared/components/back-button/back-button.component';
 
 @Component({
@@ -12,7 +12,7 @@ import { BackButtonComponent } from '../../../shared/components/back-button/back
   standalone: true,
   imports: [RouterModule,
             BackButtonComponent,
-  ] // 📌 Asegurar que RouterModule esté disponible
+  ] //  Asegurar que RouterModule esté disponible
 })
 export class CultivoDetailComponent implements OnInit {
   cultivoId!: number;

@@ -26,22 +26,21 @@ export class TratamientoService {
 
   addTratamiento(tratamiento: Tratamiento): Observable<Tratamiento> {
     if (!tratamiento.cultivoId || tratamiento.cultivoId === 0) {
-      console.error("🚨 Error: `cultivoId` es inválido en `addTratamiento`:", tratamiento);
-      alert("⚠️ Error: No se ha seleccionado un cultivo válido.");
+      console.error(" Error: `cultivoId` es inválido en `addTratamiento`:", tratamiento);
+      alert(" Error: No se ha seleccionado un cultivo válido.");
       return new Observable<Tratamiento>();
     }
   
-    console.log("📡 Enviando petición POST a:", `${this.apiUrl}/cultivo/${tratamiento.cultivoId}`);
-    console.log("📤 Datos enviados:", tratamiento);
+    console.log(" Enviando petición POST a:", `${this.apiUrl}/cultivo/${tratamiento.cultivoId}`);
+    console.log(" Datos enviados:", tratamiento);
   
     return this.http.post<Tratamiento>(
-      `${this.apiUrl}/cultivo/${tratamiento.cultivoId}`, // ✅ Coincide con el backend
+      `${this.apiUrl}/cultivo/${tratamiento.cultivoId}`, //  Coincide con el backend
       tratamiento, 
       { headers: this.getAuthHeaders() }
     );
   }
   
-
   obtenerTratamientos(): Observable<Tratamiento[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
@@ -52,7 +51,7 @@ export class TratamientoService {
   }
 
   private obtenerHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token'); // ✅ Recupera el token almacenado
+    const token = localStorage.getItem('token'); // Recupera el token almacenado
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'

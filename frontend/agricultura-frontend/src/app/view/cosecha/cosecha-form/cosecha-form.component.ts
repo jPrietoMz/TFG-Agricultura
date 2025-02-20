@@ -14,7 +14,7 @@ import { BackButtonComponent } from '../../../shared/components/back-button/back
   imports: [CommonModule, FormsModule, BackButtonComponent]
 })
 export class CosechaFormComponent {
-  cultivoId!: number; // ✅ Se declara `cultivoId` aquí
+  cultivoId!: number; //  Se declara `cultivoId` aquí
   nuevaCosecha: Cosecha = {
     id: 0,
     kilosObtenidos: 0,
@@ -34,9 +34,9 @@ export class CosechaFormComponent {
     const id = Number(this.route.snapshot.paramMap.get('cultivoId'));
     if (!isNaN(id) && id > 0) {
       this.cultivoId = id;
-      this.nuevaCosecha.cultivoId = id; // ✅ Asignamos el `cultivoId` a la cosecha correctamente
+      this.nuevaCosecha.cultivoId = id; //  Asignamos el `cultivoId` a la cosecha correctamente
     } else {
-      console.error("⚠️ Error: `cultivoId` es inválido:", id);
+      console.error(" Error: `cultivoId` es inválido:", id);
       alert("Error: No se encontró el ID del cultivo.");
       this.router.navigate(['/cultivos']); // Redirigir si hay un error
     }
@@ -45,7 +45,7 @@ export class CosechaFormComponent {
   guardarCosecha() {
   const token = localStorage.getItem('token');
   if (!token) {
-    alert("⚠️ Error: No se encontró el token de autenticación.");
+    alert(" Error: No se encontró el token de autenticación.");
     this.router.navigate(['/login']);
     return;
   }
@@ -54,18 +54,18 @@ export class CosechaFormComponent {
   const payload = JSON.parse(atob(token.split('.')[1])); // Decodificar el JWT
   const usuarioId = payload.userId; // Asegúrate de que el backend incluye `userId` en el token
 
-  this.nuevaCosecha.usuarioId = usuarioId; // ✅ Asignamos el usuario
+  this.nuevaCosecha.usuarioId = usuarioId; //  Asignamos el usuario
 
   console.log("🌱 Enviando cosecha con usuarioId:", this.nuevaCosecha.usuarioId);
 
   this.cosechaService.agregarCosecha(this.nuevaCosecha).subscribe({
     next: (data) => {
-      console.log('✅ Cosecha guardada:', data);
+      console.log(' Cosecha guardada:', data);
       alert('Cosecha guardada exitosamente');
       this.router.navigate(['/cultivos', this.cultivoId, 'cosechas']); // Redirigir a la lista de cosechas
     },
     error: (err) => {
-      console.error('❌ Error guardando cosecha:', err);
+      console.error(' Error guardando cosecha:', err);
       alert('Error al guardar la cosecha. Revisa la consola para más detalles.');
     }
   });

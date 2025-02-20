@@ -20,10 +20,6 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-//    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-//    private List<Cosecha> cosechas = new ArrayList<>();
-
-
     @ManyToMany
     @JoinTable(
             name = "usuario_cultivo",

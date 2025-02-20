@@ -19,22 +19,14 @@ export class CosechaService {
       'Content-Type': 'application/json'
     });
   }
-  // getCosechasByCultivo(cultivoId: number): Observable<Cosecha[]> {
-  //   return this.http.get<Cosecha[]>(`${this.apiUrl}/cultivo/${cultivoId}`, { headers: this.getAuthHeaders() });
-  // }
-  // getCosechasByCultivo(cultivoId: number): Observable<Cosecha[]> {
-  //   const headers = this.getAuthHeaders();
-  //   return this.http.get<Cosecha[]>(`${this.apiUrl}/cultivo/${cultivoId}/usuario`, { headers });
-  // }
+
   getCosechasByCultivo(): Observable<Cosecha[]> {
     return this.http.get<Cosecha[]>(`${this.apiUrl}/mis-cosechas`, { headers: this.getAuthHeaders() });
   }
   
-  
-  
   agregarCosecha(cosecha: Cosecha): Observable<Cosecha> {
     if (!cosecha.cultivoId || cosecha.cultivoId === 0) {
-      console.error("🚨 Error: `cultivoId` es inválido en `agregarCosecha`:", cosecha);
+      console.error("Error: `cultivoId` es inválido en `agregarCosecha`:", cosecha);
       return new Observable<Cosecha>();
     }
 
@@ -50,7 +42,7 @@ export class CosechaService {
   }
 
   private obtenerHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token'); // ✅ Recupera el token almacenado
+    const token = localStorage.getItem('token'); // Recupera el token almacenado
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'

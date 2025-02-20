@@ -24,24 +24,17 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @PostMapping("/register")
-//    public ResponseEntity<String> registerUser(@Valid @RequestBody UserDTO userDTO) {
-//        userService.registerUser(userDTO);
-//        return ResponseEntity.ok("Usuario registrado con éxito");
-//    }
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerUser(@Valid @RequestBody UserDTO userDTO) {
         userService.registerUser(userDTO);
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Usuario registrado con éxito"); // ✅ Devuelve un JSON válido
+        response.put("message", "Usuario registrado con éxito");
         return ResponseEntity.ok(response);
     }
 
-    // 🔹 Cambiamos para que devuelva el token JWT en el login
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
         try {
-            // 🔹 Autenticar usuario y obtener token JWT
             String token = userService.authenticateAndGenerateToken(loginRequest.getUsername(), loginRequest.getPassword());
             return ResponseEntity.ok(token); // 🔹 Enviar el token como respuesta
         } catch (RuntimeException e) {

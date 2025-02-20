@@ -16,7 +16,6 @@ export class AuthService {
     return this.http.post<any>(this.apiUrl, { username, password });
   }
 
-  // ✅ Método corregido para registrar un usuario
   register(userData: { username: string; password: string }): Observable<any> {
     return this.http.post(this.registerUrl, userData);
   }
@@ -35,6 +34,6 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token'); // ✅ Verifica si hay un token guardado
+    return !!localStorage.getItem('token'); 
   }
 }

@@ -21,9 +21,6 @@ public class CultivoService {
         this.userRepository = userRepository;
     }
 
-//    public List<Cultivo> getCultivosPorUsuario(Long usuarioId) {
-//        return cultivoRepository.findByUsuario_Id(usuarioId);
-//    }
     // Método para obtener cultivos por usuario ID
     public List<Cultivo> obtenerCultivosPorUsuario(Long usuarioId) {
         return cultivoRepository.findByUsuarios_Id(usuarioId);

@@ -66,7 +66,7 @@ export class CosechaListComponent implements OnInit {
   eliminarCosecha(id: number) {
     if (confirm("¿Estás seguro de que quieres eliminar esta cosecha?")) {
       this.cosechaService.eliminarCosecha(id).subscribe(() => {
-        alert('Tratamiento eliminado con éxito.');
+        alert('Cosecha eliminada con éxito.');
         this.cargarCosechas();
       });
     }

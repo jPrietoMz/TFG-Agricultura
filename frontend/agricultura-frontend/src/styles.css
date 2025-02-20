@@ -3,7 +3,12 @@ body {
     font-family: 'Arial', sans-serif;
     font-weight: bold;
     color: #000000; 
+    margin: 0; /* Eliminar margen por defecto */
+    padding-top: 60px; 
   }
+main {
+    padding-top: 60px; /* Ajuste para que el contenido no quede oculto */
+}
   
   /* Estilo para títulos */
   h1, h2, h3 {

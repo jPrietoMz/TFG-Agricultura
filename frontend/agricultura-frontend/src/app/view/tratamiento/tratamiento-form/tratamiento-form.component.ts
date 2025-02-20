@@ -37,10 +37,10 @@ export class TratamientoFormComponent {
   
     if (cultivoId && !isNaN(Number(cultivoId))) {
       this.cultivoId = Number(cultivoId);
-      this.nuevoTratamiento.cultivoId = this.cultivoId; // ✅ Se asigna correctamente
-      console.log("✅ Cultivo ID asignado:", this.cultivoId);
+      this.nuevoTratamiento.cultivoId = this.cultivoId; //  Se asigna correctamente
+      console.log(" Cultivo ID asignado:", this.cultivoId);
     } else {
-      console.error("❌ Error: `cultivoId` no es válido:", cultivoId);
+      console.error(" Error: `cultivoId` no es válido:", cultivoId);
       alert("Error: No se encontró el ID del cultivo.");
       this.router.navigate(['/cultivos']); // Redirigir si hay un error
     }
@@ -49,7 +49,7 @@ export class TratamientoFormComponent {
   guardarTratamiento() {
     const token = localStorage.getItem('token');
     if (!token) {
-      alert("⚠️ Error: No se encontró el token de autenticación.");
+      alert(" Error: No se encontró el token de autenticación.");
       this.router.navigate(['/login']);
       return;
     }
@@ -58,36 +58,21 @@ export class TratamientoFormComponent {
   const payload = JSON.parse(atob(token.split('.')[1])); // Decodificar el JWT
   const usuarioId = payload.userId; // Asegúrate de que el backend incluye `userId` en el token
 
-  this.nuevoTratamiento.usuarioId = usuarioId; // ✅ Asignamos el usuario
-  console.log("🛠️ Token enviado en la petición:", `"Bearer ${token}"`); // 🔍 Depuración
-  console.log("🌱 Enviando cosecha con usuarioId:", this.nuevoTratamiento.usuarioId);
+  this.nuevoTratamiento.usuarioId = usuarioId; //  Asignamos el usuario
+  console.log(" Token enviado en la petición:", `"Bearer ${token}"`); // 🔍 Depuración
+  console.log(" Enviando cosecha con usuarioId:", this.nuevoTratamiento.usuarioId);
 
   this.tratamientoService.addTratamiento(this.nuevoTratamiento).subscribe({
     next: (data) => {
-      console.log('✅ Tratamiento guardado:', data);
-      alert('Cosecha guardada exitosamente');
-      this.router.navigate(['/cultivos', this.cultivoId, 'cosechas']); // Redirigir a la lista de cosechas
+      console.log(' Tratamiento guardado:', data);
+      alert('Tratamiento guardada exitosamente');
+      this.router.navigate(['/cultivos', this.cultivoId, 'tratamientos']); // Redirigir a la lista de cosechas
     },
     error: (err) => {
-      console.error('❌ Error guardando cosecha:', err);
-      alert('Error al guardar la cosecha. Revisa la consola para más detalles.');
+      console.error(' Error guardando tratamiento:', err);
+      alert('Error al guardar la tratamiento. Revisa la consola para más detalles.');
     }
   });
 }
-  
-  //   console.log("🌱 Enviando tratamiento (sin usuarioId, backend lo asigna):", this.nuevoTratamiento);
-  
-  //   this.tratamientoService.addTratamiento(this.nuevoTratamiento).subscribe({
-  //     next: (data) => {
-  //       console.log('✅ Tratamiento guardado:', data);
-  //       alert('Tratamiento guardado exitosamente');
-  //       this.router.navigate(['/cultivos', this.cultivoId, 'tratamientos']);
-  //     },
-  //     error: (err) => {
-  //       console.error('❌ Error guardando tratamiento:', err);
-  //       alert('Error al guardar el tratamiento. Revisa la consola para más detalles.');
-  //     }
-  //   });
-  // }
-  
+
 }

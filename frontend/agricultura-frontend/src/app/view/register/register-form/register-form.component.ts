@@ -13,8 +13,8 @@ import { Router, RouterModule } from '@angular/router';
   ]
 })
 export class RegisterFormComponent {
-  username: string = '';  // 🔥 Definimos username
-  password: string = '';  // 🔥 Definimos password
+  username: string = '';  
+  password: string = '';  
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -24,12 +24,12 @@ export class RegisterFormComponent {
     this.http.post('http://localhost:8080/api/users/register', registerData)
       .subscribe({
         next: (response) => {
-          console.log('✅ Registro exitoso:', response);
+          console.log(' Registro exitoso:', response);
           alert('Registro exitoso. Ahora puedes iniciar sesión.');
-          this.router.navigate(['/login']); // 🔥 Redirige al login
+          this.router.navigate(['/login']); //  Redirige al login
         },
         error: (err) => {
-          console.error('❌ Error en el registro:', err);
+          console.error(' Error en el registro:', err);
           alert('Error en el registro: ' + (err.error.message || 'Inténtalo de nuevo.'));
         }
       });

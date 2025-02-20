@@ -32,18 +32,11 @@ public class CosechaService {
         return cosechaRepository.findByCultivoId(cultivoId);
     }
 
-//    // Crear una nueva cosecha asociada a un cultivo
-//    public Cosecha crearCosecha(Long cultivoId, Cosecha cosecha) {
-//        Cultivo cultivo = cultivoRepository.findById(cultivoId)
-//                .orElseThrow(() -> new RuntimeException("Cultivo no encontrado"));
-//        cosecha.setCultivo(cultivo);
-//        return cosechaRepository.save(cosecha);
-//    }
     public Cosecha crearCosecha(Long cultivoId, Cosecha cosecha, String username) {
         Cultivo cultivo = cultivoRepository.findById(cultivoId)
-                .orElseThrow(() -> new RuntimeException("⚠️ Error: Cultivo no encontrado con ID " + cultivoId));
+                .orElseThrow(() -> new RuntimeException("⚠ Error: Cultivo no encontrado con ID " + cultivoId));
         User usuario = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("⚠️ Error: Usuario no encontrado con username " + username));
+                .orElseThrow(() -> new RuntimeException("⚠ Error: Usuario no encontrado con username " + username));
 
         cosecha.setCultivo(cultivo);
         cosecha.setUsuario(usuario);

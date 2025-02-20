@@ -28,10 +28,10 @@ export class TratamientoListComponent implements OnInit {
     this.cultivoId = Number(this.route.snapshot.paramMap.get('cultivoId'));
   
     if (!isNaN(this.cultivoId) && this.cultivoId > 0) {
-      console.log("✅ Cultivo ID cargado en lista de tratamientos:", this.cultivoId);
+      console.log(" Cultivo ID cargado en lista de tratamientos:", this.cultivoId);
       this.cargarTratamientos();
     } else {
-      console.error("❌ Error: `cultivoId` no es válido:", this.cultivoId);
+      console.error(" Error: `cultivoId` no es válido:", this.cultivoId);
       alert("Error: No se encontró el ID del cultivo.");
       this.router.navigate(['/cultivos']); // Redirigir si hay un error
     }
@@ -46,10 +46,10 @@ export class TratamientoListComponent implements OnInit {
     this.tratamientoService.getTratamientosByCultivo().subscribe({
       next: (data: Tratamiento[]) => {
         this.tratamientos = data;
-        console.log('✅ Tratamientos cargados correctamente');
+        console.log(' Tratamientos cargados correctamente');
       },
       error: (err) => {
-        console.error('❌ Error al cargar tratamientos:', err);
+        console.error(' Error al cargar tratamientos:', err);
       }
     });
   }
@@ -59,7 +59,7 @@ export class TratamientoListComponent implements OnInit {
       this.tratamientoService.eliminarTratamiento(id).subscribe(
         () => {
           alert('Tratamiento eliminado con éxito.');
-          this.cargarTratamientos(); // 🔄 Refrescar la lista después de eliminar
+          this.cargarTratamientos(); //  Refrescar la lista después de eliminar
         });
     }
   }

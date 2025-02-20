@@ -41,12 +41,5 @@ public class UserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-    //DEFINO ROLE POR DEFECTO COMO USER PORQUE LA GENTE QUE SE REGISTRA NO NECESITA TANTOS PEMR
-//    public String getRole() {
-//        return role;
-//    }
-//
-//    public void setRole(String role) {
-//        this.role = role;
-//    }
+
 }

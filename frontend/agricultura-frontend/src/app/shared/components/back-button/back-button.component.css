@@ -8,8 +8,8 @@
   font-size: 14px;
   position: absolute;
   right: 20px;
-  top: 20px;
-}
+  top: 70px; /* Ajusta para que no esté cubierto */
+  z-index: 1100; /* Asegura que esté sobre la navbar */}
 
 .back-button:hover {
   background-color: #45a049;
